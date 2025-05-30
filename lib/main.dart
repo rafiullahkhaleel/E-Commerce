@@ -1,5 +1,6 @@
 import 'package:e_commerce/firebase_options.dart';
 import 'package:e_commerce/screens/auth/sign_in_screen.dart';
+import 'package:e_commerce/screens/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -17,11 +18,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: SignInScreen(),
+      home: HomeScreen(),
     );
   }
 }
