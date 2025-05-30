@@ -1,3 +1,4 @@
+import 'package:e_commerce/core/sevices/auth_sevices.dart';
 import 'package:flutter/material.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -81,30 +82,35 @@ class _SignInScreenState extends State<SignInScreen> {
                           ],
                         ),
                       ),
-                      Container(
-                        height: height * .07,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Row(
-                          children: [
-                            SizedBox(width: width * .05),
-                            Image.asset(
-                              'assets/google.png',
-                              height: height * .055,
-                            ),
-                            SizedBox(width: width * .05),
-                            Text(
-                              'Sign in with Google',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
+                      InkWell(
+                        onTap: (){
+                          AuthServices.signInWithGoogle(context);
+                        },
+                        child: Container(
+                          height: height * .07,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Row(
+                            children: [
+                              SizedBox(width: width * .05),
+                              Image.asset(
+                                'assets/google.png',
+                                height: height * .055,
                               ),
-                            ),
-                          ],
+                              SizedBox(width: width * .05),
+                              Text(
+                                'Sign in with Google',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       Column(
