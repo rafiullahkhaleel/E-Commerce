@@ -1,7 +1,8 @@
-import 'package:e_commerce/screens/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import '../../view/screens/home_screen.dart';
 
 class AuthServices {
   static Future<void> signInWithGoogle(BuildContext context) async {
