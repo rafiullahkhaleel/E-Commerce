@@ -1,3 +1,5 @@
+import 'package:e_commerce/core/constants/colors.dart';
+import 'package:e_commerce/view/screens/detail/detial_screen.dart';
 import 'package:e_commerce/view/widgets/my_drawer.dart';
 import 'package:e_commerce/view/widgets/single_product.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Color(0xffcbcbcb),
       drawer: MyDrawer(),
       appBar: AppBar(
-        backgroundColor: Color(0xffd6b738),
+        backgroundColor: AppColors.primaryColor,
         title: Text('Home'),
         actions: [
           CircleAvatar(
@@ -87,6 +89,9 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 children: [
                   SingleProduct(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailScreen()));
+                    },
                     imageURL:
                         'https://greengardens.pk/wp-content/uploads/2023/07/1000015570.jpg',
                     name: 'Fresh Basil',

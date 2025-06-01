@@ -113,14 +113,7 @@ class SingleProduct extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        Text(
-                                          '-',
-                                          style: TextStyle(
-                                            color: Color(0xffd6b738),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15,
-                                          ),
-                                        ),
+                                        Icon(Icons.remove,color: Color(0xffd6b738),),
                                         Text(
                                           '1',
                                           style: TextStyle(
@@ -129,14 +122,7 @@ class SingleProduct extends StatelessWidget {
                                             fontSize: 15,
                                           ),
                                         ),
-                                        Text(
-                                          '+',
-                                          style: TextStyle(
-                                            color: Color(0xffd6b738),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15,
-                                          ),
-                                        ),
+                                        Icon(Icons.add,color: Color(0xffd6b738),),
                                       ],
                                     ),
                                   ],
