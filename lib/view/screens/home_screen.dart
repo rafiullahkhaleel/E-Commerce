@@ -1,5 +1,6 @@
 import 'package:e_commerce/core/constants/colors.dart';
 import 'package:e_commerce/view/screens/detail/detial_screen.dart';
+import 'package:e_commerce/view/screens/search_screen.dart';
 import 'package:e_commerce/view/widgets/my_drawer.dart';
 import 'package:e_commerce/view/widgets/single_product.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,11 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           CircleAvatar(
             backgroundColor: Color(0xFFd4d181),
-            child: Icon(Icons.search),
+            child: IconButton(
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchScreen()));
+                },
+                icon:Icon(Icons.search)),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 6),
