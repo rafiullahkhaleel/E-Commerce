@@ -89,36 +89,59 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 children: [
                   SingleProduct(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailScreen()));
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (context) => DetailScreen(
+                                imageUrl:
+                                    'https://greengardens.pk/wp-content/uploads/2023/07/1000015570.jpg',
+                                name: 'Fresh Basil',
+                              ),
+                        ),
+                      );
                     },
                     imageURL:
                         'https://greengardens.pk/wp-content/uploads/2023/07/1000015570.jpg',
                     name: 'Fresh Basil',
                   ),
                   SingleProduct(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (context) => DetailScreen(
+                            imageUrl:
+                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQL-aExbxxr34tCr8RbkZVcGhbwB-c5bUsyqw&s',
+                            name: 'Pepper',
+                          ),
+                        ),
+                      );
+                    },
                     imageURL:
                         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQL-aExbxxr34tCr8RbkZVcGhbwB-c5bUsyqw&s',
                     name: 'Pepper',
                   ),
                   SingleProduct(
                     imageURL:
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSANPaGACfQBDqCRmOfvNOf8N_VIOvELt4R7g&s',
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSANPaGACfQBDqCRmOfvNOf8N_VIOvELt4R7g&s',
                     name: 'Green Onion',
                   ),
                   SingleProduct(
                     imageURL:
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuHYp-ZsQA0jJekJg7Zf1hTtcg3v7J0X4Z6w&s',
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuHYp-ZsQA0jJekJg7Zf1hTtcg3v7J0X4Z6w&s',
                     name: 'Okra',
                   ),
                   SingleProduct(
                     imageURL:
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmr_j0Et8C8vc0X5QeCalmsVflsh7GGLT6WA&s',
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmr_j0Et8C8vc0X5QeCalmsVflsh7GGLT6WA&s',
                     name: 'Mint',
                   ),
                   SingleProduct(
                     imageURL:
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTy5HHBMBioaWXitTT-hqB8m05LbCjYB0YJfw&s',
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTy5HHBMBioaWXitTT-hqB8m05LbCjYB0YJfw&s',
                     name: 'Spinach',
                   ),
                 ],
@@ -142,32 +165,32 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   SingleProduct(
                     imageURL:
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzVlSssPqPdbLKN-96RWzVpla2_wUv_pzVdg&s',
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzVlSssPqPdbLKN-96RWzVpla2_wUv_pzVdg&s',
                     name: 'Grapes',
                   ),
                   SingleProduct(
                     imageURL:
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYyB9ZbwPxnDJ1kyGUjCbBZ6JlBO8tWZ5NCw&s',
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYyB9ZbwPxnDJ1kyGUjCbBZ6JlBO8tWZ5NCw&s',
                     name: 'Water Melon',
                   ),
                   SingleProduct(
                     imageURL:
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRq9L-6Bzo3zTDef1fJ1-UTvAsdbXj4_wPt_w&s',
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRq9L-6Bzo3zTDef1fJ1-UTvAsdbXj4_wPt_w&s',
                     name: 'Apple',
                   ),
                   SingleProduct(
                     imageURL:
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9xl39KJGbHwEhO_lpbJ5Y3Vhk_JoLBDlMPg&s',
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9xl39KJGbHwEhO_lpbJ5Y3Vhk_JoLBDlMPg&s',
                     name: 'Mango',
                   ),
                   SingleProduct(
                     imageURL:
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAPTmLmy6JOANUgSeOSVv0Y7d5izTO_wsWLQ&s',
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAPTmLmy6JOANUgSeOSVv0Y7d5izTO_wsWLQ&s',
                     name: 'Banana',
                   ),
                   SingleProduct(
                     imageURL:
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShDZibBehmTA9pQayLFU2USSAPr8MBVIhBdQ&s',
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShDZibBehmTA9pQayLFU2USSAPr8MBVIhBdQ&s',
                     name: 'Orange',
                   ),
                 ],
