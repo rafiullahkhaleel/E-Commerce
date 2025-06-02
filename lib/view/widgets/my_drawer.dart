@@ -1,3 +1,4 @@
+import 'package:e_commerce/view/screens/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -64,6 +65,9 @@ class _MyDrawerState extends State<MyDrawer> {
             title: Text('Review Cart'),
           ),
           ListTile(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileScreen()));
+            },
             leading: Icon(Icons.person_outline_sharp),
             title: Text('My Profile'),
           ),
