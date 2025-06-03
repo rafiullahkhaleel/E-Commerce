@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 class SingleProduct extends StatelessWidget {
   final String imageURL;
   final String name;
+  final String price;
   final VoidCallback? onTap;
 
   const SingleProduct({
     super.key,
     required this.imageURL,
     required this.name,
-    this.onTap,
+    this.onTap, required this.price,
   });
 
   @override
@@ -84,7 +85,7 @@ class SingleProduct extends StatelessWidget {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          '50 Gram',
+                                          price,
                                           style: TextStyle(fontSize: 13),
                                         ),
                                         Icon(

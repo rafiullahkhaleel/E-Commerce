@@ -4,7 +4,13 @@ import 'package:flutter/material.dart';
 class DetailScreen extends StatefulWidget {
   final String name;
   final String imageUrl;
-  const DetailScreen({super.key, required this.name, required this.imageUrl});
+  final String price;
+  const DetailScreen({
+    super.key,
+    required this.name,
+    required this.imageUrl,
+    required this.price,
+  });
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -70,7 +76,7 @@ class _DetailScreenState extends State<DetailScreen> {
                           ],
                         ),
                         Text(
-                          '50\$',
+                          '${widget.price}\$',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
