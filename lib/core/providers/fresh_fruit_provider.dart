@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/core/models/herbs_product_model.dart';
 import 'package:flutter/cupertino.dart';
 
-class HerbsProductProvider extends ChangeNotifier {
+class FreshFruitProductProvider extends ChangeNotifier {
   List<ProductModel> _snapshot = [];
   bool _isLoading = false;
   String? _error;
@@ -15,7 +15,7 @@ class HerbsProductProvider extends ChangeNotifier {
       _error = null;
       notifyListeners();
       final data =
-          await FirebaseFirestore.instance.collection('herbsProducts').get();
+      await FirebaseFirestore.instance.collection('fruitProducts').get();
 
       _snapshot =
           data.docs.map((docs) {

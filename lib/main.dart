@@ -1,3 +1,4 @@
+import 'package:e_commerce/core/providers/fresh_fruit_provider.dart';
 import 'package:e_commerce/core/providers/herbs_product_provider.dart';
 import 'package:e_commerce/firebase_options.dart';
 import 'package:e_commerce/view/screens/home_screen.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => HerbsProductProvider()),
+        ChangeNotifierProvider(create: (_)=>FreshFruitProductProvider())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
