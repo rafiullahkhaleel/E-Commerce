@@ -1,4 +1,5 @@
 import 'package:e_commerce/core/constants/colors.dart';
+import 'package:e_commerce/core/models/herbs_product_model.dart';
 import 'package:e_commerce/core/providers/fresh_fruit_provider.dart';
 import 'package:e_commerce/core/providers/herbs_product_provider.dart';
 import 'package:e_commerce/view/screens/detail/detial_screen.dart';
@@ -19,8 +20,16 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     Future.microtask(() {
-       Provider.of<HerbsProductProvider>(context, listen: false).fetchData();
-       Provider.of<FreshFruitProductProvider>(context, listen: false).fetchData();
+      final provider1 = Provider.of<HerbsProductProvider>(
+        context,
+        listen: false,
+      );
+      final provider2 = Provider.of<FreshFruitProductProvider>(
+        context,
+        listen: false,
+      );
+      provider1.fetchData();
+      provider2.fetchData();
     });
     super.initState();
   }
@@ -34,17 +43,39 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: AppColors.primaryColor,
         title: Text('Home'),
         actions: [
-          CircleAvatar(
-            backgroundColor: Color(0xFFd4d181),
-            child: IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SearchScreen()),
-                );
-              },
-              icon: Icon(Icons.search),
-            ),
+          Consumer<FreshFruitProductProvider>(
+            builder: (context, provider, child) {
+              return Visibility(
+                visible: !provider.isLoading,
+                child: CircleAvatar(
+                  backgroundColor: Color(0xFFd4d181),
+                  child: IconButton(
+                    onPressed: () {
+                      List<ProductModel> herbProvider =
+                          Provider.of<HerbsProductProvider>(
+                            context,
+                            listen: false,
+                          ).snapshot;
+                      List<ProductModel> fruitProvider =
+                          Provider.of<FreshFruitProductProvider>(
+                            context,
+                            listen: false,
+                          ).snapshot;
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (context) => SearchScreen(
+                                searchList: [...herbProvider, ...fruitProvider],
+                              ),
+                        ),
+                      );
+                    },
+                    icon: Icon(Icons.search),
+                  ),
+                ),
+              );
+            },
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -79,6 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Color(0xffd6b738),
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(30),
+                      bottomLeft: Radius.circular(15),
                     ),
                   ),
                   child: Center(
@@ -98,66 +130,108 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('Herbs Seasonings', style: TextStyle(fontSize: 15)),
-                Text(
-                  'View all',
-                  style: TextStyle(color: Colors.grey, fontSize: 15),
+                Consumer<HerbsProductProvider>(
+                  builder: (context, provider, child) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) =>
+                                    SearchScreen(searchList: provider.snapshot),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'View all',
+                        style: TextStyle(
+                          color: Colors.grey.shade600,
+                          fontSize: 15,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
             SizedBox(height: 8),
             Consumer<HerbsProductProvider>(
-  builder: (context, provider, child) {
-  return SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child:
-              provider.isLoading
-                  ? Row(
-                children: [
-                  SizedBox(width: MediaQuery.sizeOf(context).width/2.2,),
-                  SizedBox(
-                    height: 250,
-                    child: Center(child: CircularProgressIndicator()),
-                  ),
-                ],
-              )
-                  : provider.error != null
-                  ? Center(
-                child: Text('ERROR OCCURRED ${provider.error}'),
-              )
-                  : Row(
-                children:
-                provider.snapshot.map((element) {
-                  return SingleProduct(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder:
-                              (context) => DetailScreen(
-                            imageUrl: element.image,
-                            name: element.name,
-                            price: element.price,
+              builder: (context, provider, child) {
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child:
+                      provider.isLoading
+                          ? Row(
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.sizeOf(context).width / 2.2,
+                              ),
+                              SizedBox(
+                                height: 250,
+                                child: Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              ),
+                            ],
+                          )
+                          : provider.error != null
+                          ? Center(
+                            child: Text('ERROR OCCURRED ${provider.error}'),
+                          )
+                          : Row(
+                            children:
+                                provider.snapshot.map((element) {
+                                  return SingleProduct(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder:
+                                              (context) => DetailScreen(
+                                                imageUrl: element.image,
+                                                name: element.name,
+                                                price: element.price,
+                                              ),
+                                        ),
+                                      );
+                                    },
+                                    imageURL: element.image,
+                                    name: element.name,
+                                    price: element.price,
+                                  );
+                                }).toList(),
                           ),
-                        ),
-                      );
-                    },
-                    imageURL: element.image,
-                    name: element.name,
-                    price: element.price,
-                  );
-                }).toList(),
-              ),
-            );
-  },
-),
+                );
+              },
+            ),
             SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('Fresh Fruits', style: TextStyle(fontSize: 15)),
-                Text(
-                  'View all',
-                  style: TextStyle(color: Colors.grey, fontSize: 15),
+                Consumer<FreshFruitProductProvider>(
+                  builder: (context, provider, child) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) =>
+                                    SearchScreen(searchList: provider.snapshot),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'View all',
+                        style: TextStyle(
+                          color: Colors.grey.shade600,
+                          fontSize: 15,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
@@ -167,43 +241,47 @@ class _HomeScreenState extends State<HomeScreen> {
                 return SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child:
-                  provider.isLoading
-                      ? Row(
-                    children: [
-                      SizedBox(width: MediaQuery.sizeOf(context).width/2.2,),
-                      SizedBox(
-                        height: 250,
-                        child: Center(child: CircularProgressIndicator()),
-                      ),
-                    ],
-                  )
-                      : provider.error != null
-                      ? Center(
-                    child: Text('ERROR OCCURRED ${provider.error}'),
-                  )
-                      : Row(
-                    children:
-                    provider.snapshot.map((element) {
-                      return SingleProduct(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder:
-                                  (context) => DetailScreen(
-                                imageUrl: element.image,
-                                name: element.name,
-                                price: element.price,
+                      provider.isLoading
+                          ? Row(
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.sizeOf(context).width / 2.2,
                               ),
-                            ),
-                          );
-                        },
-                        imageURL: element.image,
-                        name: element.name,
-                        price: element.price,
-                      );
-                    }).toList(),
-                  ),
+                              SizedBox(
+                                height: 250,
+                                child: Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              ),
+                            ],
+                          )
+                          : provider.error != null
+                          ? Center(
+                            child: Text('ERROR OCCURRED ${provider.error}'),
+                          )
+                          : Row(
+                            children:
+                                provider.snapshot.map((element) {
+                                  return SingleProduct(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder:
+                                              (context) => DetailScreen(
+                                                imageUrl: element.image,
+                                                name: element.name,
+                                                price: element.price,
+                                              ),
+                                        ),
+                                      );
+                                    },
+                                    imageURL: element.image,
+                                    name: element.name,
+                                    price: element.price,
+                                  );
+                                }).toList(),
+                          ),
                 );
               },
             ),

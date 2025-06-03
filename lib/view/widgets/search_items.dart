@@ -3,31 +3,38 @@ import 'package:flutter/material.dart';
 
 class SearchItems extends StatelessWidget {
   final bool isBool;
-  const SearchItems({super.key, this.isBool = false});
+  final String image;
+  final String name;
+  final String price;
+  const SearchItems({
+    super.key,
+    this.isBool = false,
+    required this.image,
+    required this.name,
+    required this.price,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+      padding: const EdgeInsets.symmetric(vertical: 10,),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(100),
             child: Container(
-              height: 80,
-              child: Image.network(
-                'https://greengardens.pk/wp-content/uploads/2023/07/1000015570.jpg',
-              ),
-            ),
+                color: Colors.green,
+                height: 90,width: 90, child: Image.network(image)),
           ),
           SizedBox(width: 15),
           SizedBox(
             height: 90,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'ProductName',
+                  name,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                 ),
                 Text('50\$/50 Gram', style: TextStyle(fontSize: 15)),
@@ -36,19 +43,23 @@ class SearchItems extends StatelessWidget {
                     ? Container(
                       margin: EdgeInsets.symmetric(horizontal: 10),
                       height: 35,
+
                       decoration: BoxDecoration(
                         border: Border.all(),
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text('50 Gram', style: TextStyle(fontSize: 15)),
-                          Icon(Icons.arrow_drop_down),
-                        ],
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(price, style: TextStyle(fontSize: 15)),
+                            Icon(Icons.arrow_drop_down),
+                          ],
+                        ),
                       ),
                     )
-                    : Text('50 Gram', style: TextStyle(fontSize: 15)),
+                    : Text(price, style: TextStyle(fontSize: 15)),
               ],
             ),
           ),

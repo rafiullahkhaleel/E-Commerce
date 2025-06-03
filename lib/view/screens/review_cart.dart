@@ -22,8 +22,8 @@ class _ReviewCartState extends State<ReviewCart> {
       ),
       body: ListView(
         children: [
-          SearchItems(),
-          SearchItems()
+          // SearchItems(),
+          // SearchItems()
         ],
       ),
     );

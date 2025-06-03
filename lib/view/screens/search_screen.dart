@@ -1,15 +1,25 @@
 import 'package:e_commerce/core/constants/colors.dart';
+import 'package:e_commerce/core/models/herbs_product_model.dart';
 import 'package:e_commerce/view/widgets/search_items.dart';
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+ final List<ProductModel> searchList;
+  const SearchScreen({super.key, required this.searchList});
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  String query = '';
+  
+  List<ProductModel> searchItem(String query){
+    return widget.searchList.where((data){
+      return data.name.toLowerCase().contains(query.toLowerCase());
+    }).toList();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,6 +39,11 @@ class _SearchScreenState extends State<SearchScreen> {
             Text('items', style: TextStyle(fontSize: 18)),
             SizedBox(height: 10),
             TextField(
+              onChanged: (value){
+                setState(() {
+                  query = value;
+                });
+              },
               decoration: InputDecoration(
                 fillColor: Color(0xffB6B4B4),
                 filled: true,
@@ -42,15 +57,17 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             SizedBox(height: 10),
             Expanded(
-              child: ListView(
-                children: [
-                  SearchItems(isBool: true),
-                  SearchItems(isBool: true),
-                  SearchItems(isBool: true),
-                  SearchItems(isBool: true),
-                  SearchItems(isBool: true),
-                ],
-              ),
+              child: ListView.builder(
+                  itemCount: searchItem(query).length,
+                  itemBuilder: (context,index){
+                    final data = searchItem(query)[index];
+                return SearchItems(
+                  isBool: true,
+                  image: data.image,
+                  price: data.price,
+                  name: data.name,
+                );
+              }),
             ),
           ],
         ),
