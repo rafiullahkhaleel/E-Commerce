@@ -1,4 +1,5 @@
 import 'package:e_commerce/view/screens/profile_screen.dart';
+import 'package:e_commerce/view/screens/review_cart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -61,12 +62,21 @@ class _MyDrawerState extends State<MyDrawer> {
           SizedBox(height: 20),
           ListTile(leading: Icon(Icons.home_outlined), title: Text('Home')),
           ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ReviewCart()),
+              );
+            },
             leading: Icon(Icons.shopping_bag_outlined),
             title: Text('Review Cart'),
           ),
           ListTile(
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileScreen()));
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ProfileScreen()),
+              );
             },
             leading: Icon(Icons.person_outline_sharp),
             title: Text('My Profile'),
@@ -92,7 +102,7 @@ class _MyDrawerState extends State<MyDrawer> {
             title: Text('FAQs'),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 15,top: 10),
+            padding: const EdgeInsets.only(left: 15, top: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               spacing: 10,
@@ -106,7 +116,10 @@ class _MyDrawerState extends State<MyDrawer> {
                     Text("Call us:    ", style: TextStyle(fontSize: 15)),
                     Text(
                       '+923139126361',
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
                     ),
                   ],
                 ),
@@ -115,13 +128,16 @@ class _MyDrawerState extends State<MyDrawer> {
                     Text("Mail us:    ", style: TextStyle(fontSize: 15)),
                     Text(
                       'hello@gmail.com',
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
                     ),
                   ],
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

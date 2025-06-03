@@ -1,0 +1,120 @@
+import 'package:e_commerce/core/constants/colors.dart';
+import 'package:flutter/material.dart';
+
+class SearchItems extends StatelessWidget {
+  final bool isBool;
+  const SearchItems({super.key, this.isBool = false});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: Container(
+              height: 80,
+              child: Image.network(
+                'https://greengardens.pk/wp-content/uploads/2023/07/1000015570.jpg',
+              ),
+            ),
+          ),
+          SizedBox(width: 15),
+          SizedBox(
+            height: 90,
+            child: Column(
+              children: [
+                Text(
+                  'ProductName',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                ),
+                Text('50\$/50 Gram', style: TextStyle(fontSize: 15)),
+                Spacer(),
+                isBool == true
+                    ? Container(
+                      margin: EdgeInsets.symmetric(horizontal: 10),
+                      height: 35,
+                      decoration: BoxDecoration(
+                        border: Border.all(),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text('50 Gram', style: TextStyle(fontSize: 15)),
+                          Icon(Icons.arrow_drop_down),
+                        ],
+                      ),
+                    )
+                    : Text('50 Gram', style: TextStyle(fontSize: 15)),
+              ],
+            ),
+          ),
+          Spacer(),
+          SizedBox(
+            height: 100,
+            width: 120,
+            child:
+                isBool == true
+                    ? Column(
+                      children: [
+                        Spacer(),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 10),
+                          height: 40,
+                          decoration: BoxDecoration(
+                            border: Border.all(),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.add, color: AppColors.primaryColor),
+                              Text(
+                                'ADD',
+                                style: TextStyle(
+                                  color: AppColors.primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Spacer(),
+                      ],
+                    )
+                    : Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Icon(Icons.delete, size: 30),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 10),
+                          height: 40,
+                          decoration: BoxDecoration(
+                            border: Border.all(),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.add, color: AppColors.primaryColor),
+                              Text(
+                                'ADD',
+                                style: TextStyle(
+                                  color: AppColors.primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+          ),
+        ],
+      ),
+    );
+  }
+}
