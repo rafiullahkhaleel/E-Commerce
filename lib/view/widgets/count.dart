@@ -1,7 +1,18 @@
+import 'package:e_commerce/core/providers/cart-provider/save_cart_data.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Count extends StatefulWidget {
-  const Count({super.key});
+  final String imageURL;
+  final String name;
+  final String price;
+  final String id;
+  const Count({
+    super.key,
+    required this.imageURL,
+    required this.name,
+    required this.price, required this.id,
+  });
 
   @override
   State<Count> createState() => _CountState();
@@ -10,8 +21,10 @@ class Count extends StatefulWidget {
 class _CountState extends State<Count> {
   int count = 1;
   bool isTrue = false;
+
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<SaveCartDataProvider>(context,listen: false);
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey.shade600),
@@ -22,8 +35,10 @@ class _CountState extends State<Count> {
         children: [
           isTrue == true
               ? Row(
-                mainAxisAlignment: count < 10 ? MainAxisAlignment.spaceEvenly
-            : MainAxisAlignment.center,
+                mainAxisAlignment:
+                    count < 10
+                        ? MainAxisAlignment.spaceEvenly
+                        : MainAxisAlignment.center,
                 children: [
                   InkWell(
                     onTap: () {
@@ -67,6 +82,13 @@ class _CountState extends State<Count> {
                   setState(() {
                     isTrue = true;
                   });
+                  provider.saveData(
+                    widget.id,
+                    widget.name,
+                    widget.imageURL,
+                    widget.price,
+                    count.toString(),
+                  );
                 },
                 child: Text(
                   'ADD',

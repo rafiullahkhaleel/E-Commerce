@@ -1,5 +1,5 @@
 import 'package:e_commerce/core/constants/colors.dart';
-import 'package:e_commerce/core/models/herbs_product_model.dart';
+import 'package:e_commerce/core/models/product_model.dart';
 import 'package:e_commerce/view/widgets/search_items.dart';
 import 'package:flutter/material.dart';
 

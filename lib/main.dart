@@ -1,8 +1,11 @@
 import 'package:e_commerce/core/providers/fresh_fruit_provider.dart';
 import 'package:e_commerce/core/providers/herbs_product_provider.dart';
+import 'package:e_commerce/core/providers/cart-provider/save_cart_data.dart';
 import 'package:e_commerce/core/sevices/auth_sevices.dart';
 import 'package:e_commerce/firebase_options.dart';
+import 'package:e_commerce/view/screens/auth/sign_in_screen.dart';
 import 'package:e_commerce/view/screens/home_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +26,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => HerbsProductProvider()),
         ChangeNotifierProvider(create: (_) => FreshFruitProductProvider()),
         ChangeNotifierProvider(create: (_) => UserDataProvider()),
+        ChangeNotifierProvider(create: (_) => SaveCartDataProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -30,7 +34,10 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         ),
-        home: HomeScreen(),
+        home:
+            FirebaseAuth.instance.currentUser != null
+                ? HomeScreen()
+                : SignInScreen(),
       ),
     );
   }

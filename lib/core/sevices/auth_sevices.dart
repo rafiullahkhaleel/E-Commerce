@@ -46,6 +46,7 @@ class AuthServices {
         MaterialPageRoute(builder: (context) => HomeScreen()),
       );
     } catch (e) {
+      print(e);
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('ERROR OCCURRED $e')));

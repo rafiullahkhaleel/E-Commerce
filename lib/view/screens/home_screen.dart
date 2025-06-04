@@ -1,5 +1,5 @@
 import 'package:e_commerce/core/constants/colors.dart';
-import 'package:e_commerce/core/models/herbs_product_model.dart';
+import 'package:e_commerce/core/models/product_model.dart';
 import 'package:e_commerce/core/providers/fresh_fruit_provider.dart';
 import 'package:e_commerce/core/providers/herbs_product_provider.dart';
 import 'package:e_commerce/view/screens/detail/detial_screen.dart';
@@ -194,6 +194,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     imageURL: element.image,
                                     name: element.name,
                                     price: element.price,
+                                    id: element.id,
                                   );
                                 }).toList(),
                           ),
@@ -274,6 +275,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     imageURL: element.image,
                                     name: element.name,
                                     price: element.price,
+                                    id: element.id,
                                   );
                                 }).toList(),
                           ),

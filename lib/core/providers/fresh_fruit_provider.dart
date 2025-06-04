@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce/core/models/herbs_product_model.dart';
+import 'package:e_commerce/core/models/product_model.dart';
 import 'package:flutter/cupertino.dart';
 
 class FreshFruitProductProvider extends ChangeNotifier {

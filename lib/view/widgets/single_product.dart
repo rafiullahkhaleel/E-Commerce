@@ -5,13 +5,14 @@ class SingleProduct extends StatelessWidget {
   final String imageURL;
   final String name;
   final String price;
+  final String id;
   final VoidCallback? onTap;
 
   const SingleProduct({
     super.key,
     required this.imageURL,
     required this.name,
-    this.onTap, required this.price,
+    this.onTap, required this.price, required this.id,
   });
 
   @override
@@ -101,7 +102,7 @@ class SingleProduct extends StatelessWidget {
                             ),
                             SizedBox(width: 5),
                             Expanded(
-                              child: Count(),
+                              child: Count(imageURL: imageURL, name: name, price: price, id: id),
                             ),
                           ],
                         ),
