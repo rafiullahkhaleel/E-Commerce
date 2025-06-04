@@ -20,16 +20,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     Future.microtask(() {
-      final provider1 = Provider.of<HerbsProductProvider>(
+      Provider.of<HerbsProductProvider>(context, listen: false).fetchData();
+      Provider.of<FreshFruitProductProvider>(
         context,
         listen: false,
-      );
-      final provider2 = Provider.of<FreshFruitProductProvider>(
-        context,
-        listen: false,
-      );
-      provider1.fetchData();
-      provider2.fetchData();
+      ).fetchData();
     });
     super.initState();
   }

@@ -1,3 +1,4 @@
+import 'package:e_commerce/view/widgets/count.dart';
 import 'package:flutter/material.dart';
 
 class SingleProduct extends StatelessWidget {
@@ -100,35 +101,7 @@ class SingleProduct extends StatelessWidget {
                             ),
                             SizedBox(width: 5),
                             Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.grey.shade600,
-                                  ),
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Icon(Icons.remove,color: Color(0xffd6b738),),
-                                        Text(
-                                          '1',
-                                          style: TextStyle(
-                                            color: Color(0xffd6b738),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                        Icon(Icons.add,color: Color(0xffd6b738),),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              child: Count(),
                             ),
                           ],
                         ),
