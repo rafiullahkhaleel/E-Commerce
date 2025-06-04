@@ -6,26 +6,31 @@ class SearchItems extends StatelessWidget {
   final String image;
   final String name;
   final String price;
+  final VoidCallback? onDelete;
   const SearchItems({
     super.key,
     this.isBool = false,
     required this.image,
     required this.name,
-    required this.price,
+    required this.price, this.onDelete,
   });
+
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10,),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(100),
             child: Container(
-                color: Colors.green,
-                height: 90,width: 90, child: Image.network(image)),
+              color: Colors.green,
+              height: 90,
+              width: 90,
+              child: Image.network(image),
+            ),
           ),
           SizedBox(width: 15),
           SizedBox(
@@ -99,7 +104,15 @@ class SearchItems extends StatelessWidget {
                     : Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Icon(Icons.delete, size: 30),
+                        InkWell(
+                          onTap: () {
+                            showDeleteConfirmationDialog(
+                              context: context,
+                              onDelete: onDelete!,
+                            );
+                          },
+                          child: Icon(Icons.delete, size: 30),
+                        ),
                         Container(
                           margin: EdgeInsets.symmetric(horizontal: 10),
                           height: 40,
@@ -129,3 +142,52 @@ class SearchItems extends StatelessWidget {
     );
   }
 }
+
+Future<void> showDeleteConfirmationDialog({
+  required BuildContext context,
+  required VoidCallback onDelete,
+}) {
+  return showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) {
+      return AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        backgroundColor: Colors.white,
+        title: Row(
+          children: [
+            Icon(Icons.warning_amber_rounded, color: Colors.red, size: 28),
+            SizedBox(width: 8),
+            Text("Delete Item", style: TextStyle(fontWeight: FontWeight.bold)),
+          ],
+        ),
+        content: Text(
+          "Are you sure you want to delete this item?\nThis action cannot be undone!",
+          style: TextStyle(fontSize: 15),
+        ),
+        actionsPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text("Cancel", style: TextStyle(color: Colors.grey[700])),
+          ),
+          ElevatedButton.icon(
+            onPressed: () {
+              Navigator.of(context).pop(); // Close dialog
+              onDelete(); // Call delete function
+            },
+            icon: Icon(Icons.delete, color: Colors.white),
+            label: Text("Delete", style: TextStyle(color: Colors.white)),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          ),
+        ],
+      );
+    },
+  );
+}
+

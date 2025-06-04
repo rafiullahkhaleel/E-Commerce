@@ -1,3 +1,4 @@
+import 'package:e_commerce/core/providers/cart-provider/fetch_cart_data_provider.dart';
 import 'package:e_commerce/core/providers/fresh_fruit_provider.dart';
 import 'package:e_commerce/core/providers/herbs_product_provider.dart';
 import 'package:e_commerce/core/providers/cart-provider/save_cart_data.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => FreshFruitProductProvider()),
         ChangeNotifierProvider(create: (_) => UserDataProvider()),
         ChangeNotifierProvider(create: (_) => SaveCartDataProvider()),
+        ChangeNotifierProvider(create: (_) => FetchCartDataProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
