@@ -1,4 +1,5 @@
 import 'package:e_commerce/core/constants/colors.dart';
+import 'package:e_commerce/view/widgets/count.dart';
 import 'package:flutter/material.dart';
 
 class SearchItems extends StatelessWidget {
@@ -7,8 +8,10 @@ class SearchItems extends StatelessWidget {
   final String name;
   final String price;
   final String? quantity;
+
   final VoidCallback? onDelete;
   final bool isReviewCart;
+  final String? id;
   const SearchItems({
     super.key,
     this.isBool = false,
@@ -18,6 +21,7 @@ class SearchItems extends StatelessWidget {
     required this.price,
     this.onDelete,
     this.quantity,
+    this.id,
   });
 
   @override
@@ -82,31 +86,25 @@ class SearchItems extends StatelessWidget {
                       children: [
                         Spacer(),
                         Container(
-                          margin: EdgeInsets.symmetric(horizontal: 10),
                           height: 40,
+                          width: 100,
                           decoration: BoxDecoration(
-                            border: Border.all(),
-                            borderRadius: BorderRadius.circular(30),
+                            color: Colors.white60,
+                            border: Border.all(color: Colors.grey.shade600),
+                            borderRadius: BorderRadius.circular(50),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.add, color: AppColors.primaryColor),
-                              Text(
-                                'ADD',
-                                style: TextStyle(
-                                  color: AppColors.primaryColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
+                          child: Count(
+                            imageURL: image,
+                            name: name,
+                            price: price,
+                            id: id!,
                           ),
                         ),
                         Spacer(),
                       ],
                     )
-                    : isReviewCart ?
-                Column(
+                    : isReviewCart
+                    ? Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         InkWell(
@@ -118,53 +116,33 @@ class SearchItems extends StatelessWidget {
                           },
                           child: Icon(Icons.delete, size: 30),
                         ),
-                         Container(
-                              margin: EdgeInsets.symmetric(horizontal: 10),
-                              height: 40,
-                              decoration: BoxDecoration(
-                                color: Colors.white60,
-                                border: Border.all(),
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  InkWell(
-                                    child: Icon(
-                                      Icons.remove,
-                                      color: Color(0xffd6b738),
-                                    ),
-                                  ),
-                                  Text(
-                                    quantity ?? '1',
-                                    style: TextStyle(
-                                      color: Color(0xffd6b738),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                  InkWell(
-                                    child: Icon(
-                                      Icons.add,
-                                      color: Color(0xffd6b738),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
+                        Container(
+                          height: 40,
+                          width: 100,
+                          decoration: BoxDecoration(
+                            color: Colors.white60,
+                            border: Border.all(color: Colors.grey.shade600),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Count(
+                            imageURL: image,
+                            name: name,
+                            price: price,
+                            id: id!,
+                          ),
+                        ),
                       ],
                     )
-                    :Center(
+                    : Center(
                       child: InkWell(
-                                        onTap: () {
-                      showDeleteConfirmationDialog(
-                        context: context,
-                        onDelete: onDelete!,
-                      );
-                                        },
-                                        child: Icon(Icons.delete, size: 30),
-                                      ),
+                        onTap: () {
+                          showDeleteConfirmationDialog(
+                            context: context,
+                            onDelete: onDelete!,
+                          );
+                        },
+                        child: Icon(Icons.delete, size: 30),
+                      ),
                     ),
           ),
         ],

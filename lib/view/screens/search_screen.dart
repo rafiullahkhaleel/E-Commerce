@@ -62,6 +62,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   itemBuilder: (context,index){
                     final data = searchItem(query)[index];
                 return SearchItems(
+                  id: data.id,
                   isBool: true,
                   image: data.image,
                   price: data.price,

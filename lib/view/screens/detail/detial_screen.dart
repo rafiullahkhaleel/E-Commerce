@@ -2,9 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/core/constants/colors.dart';
 import 'package:e_commerce/core/providers/wishlist_provider/fetch_wishlist_data.dart';
 import 'package:e_commerce/core/providers/wishlist_provider/save_wishlist_data.dart';
+import 'package:e_commerce/view/screens/review_cart_cart.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../widgets/count.dart';
 
 class DetailScreen extends StatefulWidget {
   final String name;
@@ -54,12 +57,12 @@ class _DetailScreenState extends State<DetailScreen> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: Image.network(
+                          height: MediaQuery.of(context).size.height * .3,
                           widget.imageUrl,
-                          width: MediaQuery.of(context).size.width * .6,
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 20),
                     Text(
                       'Available Options',
                       style: TextStyle(
@@ -91,16 +94,23 @@ class _DetailScreenState extends State<DetailScreen> {
                             fontSize: 16,
                           ),
                         ),
-                        OutlinedButton(
-                          onPressed: () {},
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(
-                              '+ADD',
-                              style: TextStyle(color: AppColors.primaryColor),
-                            ),
+                        Container(
+                          height: 37,
+                          width: 90,
+
+                          decoration: BoxDecoration(
+                            color: Colors.white60,
+                            border: Border.all(color: Colors.grey.shade600),
+                            borderRadius: BorderRadius.circular(50),
                           ),
-                        ),
+                          child: Count(
+                            //   isAdd: isAdd,
+                            imageURL: widget.imageUrl,
+                            name: widget.name,
+                            price: widget.price,
+                            id: widget.id,
+                          ),
+                        )
                       ],
                     ),
                   ],
@@ -137,41 +147,41 @@ class _DetailScreenState extends State<DetailScreen> {
                       .doc(widget.id)
                       .snapshots(),
               builder: (context, snapshot) {
-                // if (snapshot.connectionState == ConnectionState.waiting) {
-                //   return SizedBox(
-                //     height: 25,
-                //       width: 25,
-                //       child: const CircularProgressIndicator());
-                // }
-
-                if (snapshot.hasError || !snapshot.hasData) {
-                  return const Icon(Icons.error, color: Colors.red);
-                }
                 final doc = snapshot.data;
                 final bool isFavourite =
                     (doc != null && doc.exists) ? doc.get('isWishlist') : false;
-
-                return Bottom(
-                  onTap: () {
-                    if (!isFavourite) {
-                      saveProvider.saveData(
-                        id: widget.id,
-                        name: widget.name,
-                        image: widget.imageUrl,
-                        price: widget.price,
-                      );
-                    }else{
-                      provider.delete(widget.id);
-                    }
-                  },
-                  icon: isFavourite ? Icons.favorite : Icons.favorite_border,
-                  title: 'Add to Wishlist',
-                  background: Colors.black,
-                );
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return SizedBox(height: 25, width: 25, child: Container());
+                } else if (snapshot.hasError || !snapshot.hasData) {
+                  return const Icon(Icons.error, color: Colors.red);
+                } else {
+                  return Bottom(
+                    onTap: () {
+                      if (!isFavourite) {
+                        saveProvider.saveData(
+                          id: widget.id,
+                          name: widget.name,
+                          image: widget.imageUrl,
+                          price: widget.price,
+                        );
+                      } else {
+                        provider.delete(widget.id);
+                      }
+                    },
+                    icon: isFavourite ? Icons.favorite : Icons.favorite_border,
+                    title: 'Add to Wishlist',
+                    background: Colors.black,
+                  );
+                }
               },
             ),
 
             Bottom(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => ReviewCartScreen()),
+                );
+              },
               icon: Icons.shopping_bag_outlined,
               title: 'Go to Cart',
               background: AppColors.primaryColor,

@@ -4,6 +4,7 @@ import 'package:e_commerce/core/providers/cart-provider/fetch_cart_data_provider
 import 'package:e_commerce/core/providers/fresh_fruit_provider.dart';
 import 'package:e_commerce/core/providers/herbs_product_provider.dart';
 import 'package:e_commerce/view/screens/detail/detial_screen.dart';
+import 'package:e_commerce/view/screens/review_cart_cart.dart';
 import 'package:e_commerce/view/screens/search_screen.dart';
 import 'package:e_commerce/view/widgets/my_drawer.dart';
 import 'package:e_commerce/view/widgets/single_product.dart';
@@ -82,7 +83,14 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 6),
             child: CircleAvatar(
               backgroundColor: Color(0xFFd4d181),
-              child: Icon(Icons.shopping_bag_outlined),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ReviewCartScreen()),
+                  );
+                },
+                icon: Icon(Icons.shopping_bag_outlined),
+              ),
             ),
           ),
         ],

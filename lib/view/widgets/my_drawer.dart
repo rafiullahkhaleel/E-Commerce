@@ -1,5 +1,5 @@
 import 'package:e_commerce/view/screens/profile_screen.dart';
-import 'package:e_commerce/view/screens/review_cart.dart';
+import 'package:e_commerce/view/screens/review_cart_cart.dart';
 import 'package:e_commerce/view/screens/wishlist_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +66,7 @@ class _MyDrawerState extends State<MyDrawer> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ReviewCart()),
+                MaterialPageRoute(builder: (context) => ReviewCartScreen()),
               );
             },
             leading: Icon(Icons.shopping_bag_outlined),

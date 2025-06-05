@@ -4,13 +4,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 class SaveCartDataProvider extends ChangeNotifier {
-  Future<void> saveData(
-    String id,
-    String name,
-    String image,
-    String price,
-    String quantity,
-  ) async {
+  Future<void> saveData({
+    required String id,
+    required String name,
+    required String image,
+    required String price,
+    required String quantity,
+  }) async {
     try {
       CartModel newData = CartModel(
         id: id,
@@ -31,7 +31,7 @@ class SaveCartDataProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> updateData(String quantity,String id) async {
+  Future<void> updateData({required String quantity,required String id}) async {
     try {
       await FirebaseFirestore.instance
           .collection('cartData')

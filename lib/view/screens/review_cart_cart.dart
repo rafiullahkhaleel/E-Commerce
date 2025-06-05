@@ -4,14 +4,14 @@ import 'package:e_commerce/view/widgets/search_items.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ReviewCart extends StatefulWidget {
-  const ReviewCart({super.key});
+class ReviewCartScreen extends StatefulWidget {
+  const ReviewCartScreen({super.key});
 
   @override
-  State<ReviewCart> createState() => _ReviewCartState();
+  State<ReviewCartScreen> createState() => _ReviewCartScreenState();
 }
 
-class _ReviewCartState extends State<ReviewCart> {
+class _ReviewCartScreenState extends State<ReviewCartScreen> {
   @override
   void initState() {
     super.initState();
@@ -53,6 +53,7 @@ class _ReviewCartState extends State<ReviewCart> {
                       itemBuilder: (context, index) {
                         final data = provider.snapshot[index];
                         return SearchItems(
+                          id: data.id,
                           quantity: data.quantity,
 
                           ///agr ye delete ka function na laga gya to Null Check ka error asakta hai
