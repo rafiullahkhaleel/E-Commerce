@@ -1,5 +1,6 @@
 import 'package:e_commerce/view/screens/profile_screen.dart';
 import 'package:e_commerce/view/screens/review_cart.dart';
+import 'package:e_commerce/view/screens/wishlist_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -90,6 +91,9 @@ class _MyDrawerState extends State<MyDrawer> {
             title: Text('Rating & Review'),
           ),
           ListTile(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>WishlistScreen()));
+            },
             leading: Icon(Icons.favorite_border),
             title: Text('Wishlist'),
           ),

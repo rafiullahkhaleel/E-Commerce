@@ -17,7 +17,7 @@ class SaveWishlistDataProvider extends ChangeNotifier {
         name: name,
         image: image,
         price: price,
-        wishlist: true,
+        isWishlist: true,
       );
       await FirebaseFirestore.instance
           .collection('wishlistData')

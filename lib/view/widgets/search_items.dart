@@ -8,9 +8,11 @@ class SearchItems extends StatelessWidget {
   final String price;
   final String? quantity;
   final VoidCallback? onDelete;
+  final bool isReviewCart;
   const SearchItems({
     super.key,
     this.isBool = false,
+    this.isReviewCart = false,
     required this.image,
     required this.name,
     required this.price,
@@ -103,7 +105,8 @@ class SearchItems extends StatelessWidget {
                         Spacer(),
                       ],
                     )
-                    : Column(
+                    : isReviewCart ?
+                Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         InkWell(
@@ -115,41 +118,53 @@ class SearchItems extends StatelessWidget {
                           },
                           child: Icon(Icons.delete, size: 30),
                         ),
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 10),
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: Colors.white60,
-                            border: Border.all(),
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              InkWell(
-                                child: Icon(
-                                  Icons.remove,
-                                  color: Color(0xffd6b738),
-                                ),
+                         Container(
+                              margin: EdgeInsets.symmetric(horizontal: 10),
+                              height: 40,
+                              decoration: BoxDecoration(
+                                color: Colors.white60,
+                                border: Border.all(),
+                                borderRadius: BorderRadius.circular(30),
                               ),
-                              Text(
-                                quantity ?? '1',
-                                style: TextStyle(
-                                  color: Color(0xffd6b738),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  InkWell(
+                                    child: Icon(
+                                      Icons.remove,
+                                      color: Color(0xffd6b738),
+                                    ),
+                                  ),
+                                  Text(
+                                    quantity ?? '1',
+                                    style: TextStyle(
+                                      color: Color(0xffd6b738),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                  InkWell(
+                                    child: Icon(
+                                      Icons.add,
+                                      color: Color(0xffd6b738),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              InkWell(
-                                child: Icon(
-                                  Icons.add,
-                                  color: Color(0xffd6b738),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                            )
                       ],
+                    )
+                    :Center(
+                      child: InkWell(
+                                        onTap: () {
+                      showDeleteConfirmationDialog(
+                        context: context,
+                        onDelete: onDelete!,
+                      );
+                                        },
+                                        child: Icon(Icons.delete, size: 30),
+                                      ),
                     ),
           ),
         ],
@@ -177,7 +192,7 @@ Future<void> showDeleteConfirmationDialog({
           ],
         ),
         content: Text(
-          "Are you sure you want to delete this item?\nThis action cannot be undone!",
+          "Are you sure you want to delete this item?",
           style: TextStyle(fontSize: 15),
         ),
         actionsPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),

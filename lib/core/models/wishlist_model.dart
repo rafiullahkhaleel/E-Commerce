@@ -3,14 +3,14 @@ class WishlistModel {
   final String name;
   final String image;
   final String price;
-  final bool wishlist;
+  final bool isWishlist;
 
   WishlistModel({
     required this.id,
     required this.name,
     required this.image,
     required this.price,
-    required this.wishlist,
+    required this.isWishlist,
   });
 
   factory WishlistModel.fromMap(Map<String, dynamic> map) {
@@ -19,7 +19,7 @@ class WishlistModel {
       name: map['name'] ?? '',
       image: map['image'] ?? '',
       price: map['price'] ?? '',
-      wishlist: map['wishlist'] ?? '',
+      isWishlist: map['isWishlist'] ?? '',
     );
   }
 
@@ -29,7 +29,7 @@ class WishlistModel {
       'name': name,
       'image': image,
       'price': price,
-      'wishlist': wishlist,
+      'isWishlist': isWishlist,
     };
   }
 }
