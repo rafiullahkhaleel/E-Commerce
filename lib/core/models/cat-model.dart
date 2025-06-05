@@ -4,6 +4,7 @@ class CartModel {
   final String image;
   final String price;
   final String quantity;
+  final bool isAdd;
 
   CartModel({
     required this.id,
@@ -11,9 +12,9 @@ class CartModel {
     required this.image,
     required this.price,
     required this.quantity,
+    required this.isAdd,
   });
 
-  // Convert Firestore Document to Dart Object
   factory CartModel.fromMap(Map<String, dynamic> map) {
     return CartModel(
       id: map['id'] ?? '',
@@ -21,10 +22,10 @@ class CartModel {
       image: map['image'] ?? '',
       price: map['price'] ?? '',
       quantity: map['quantity'] ?? '',
+      isAdd: map['isAdd'] ?? '',
     );
   }
 
-  // Convert Dart Object to Firestore Format
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -32,6 +33,7 @@ class CartModel {
       'image': image,
       'price': price,
       'quantity': quantity,
+      'isAdd': isAdd,
     };
   }
 }

@@ -1,5 +1,6 @@
 import 'package:e_commerce/core/constants/colors.dart';
 import 'package:e_commerce/core/models/product_model.dart';
+import 'package:e_commerce/core/providers/cart-provider/fetch_cart_data_provider.dart';
 import 'package:e_commerce/core/providers/fresh_fruit_provider.dart';
 import 'package:e_commerce/core/providers/herbs_product_provider.dart';
 import 'package:e_commerce/view/screens/detail/detial_screen.dart';
@@ -25,12 +26,17 @@ class _HomeScreenState extends State<HomeScreen> {
         context,
         listen: false,
       ).fetchData();
+      Provider.of<FetchCartDataProvider>(context, listen: false).fetchData();
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final providerData = Provider.of<FetchCartDataProvider>(
+      context,
+      listen: false,
+    );
     return Scaffold(
       backgroundColor: Color(0xffcbcbcb),
       drawer: MyDrawer(),
@@ -176,7 +182,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           )
                           : Row(
                             children:
-                                provider.snapshot.map((element) {
+                                provider.snapshot.asMap().entries.map((entry) {
+                                  int index = entry.key;
+                                  var element = entry.value;
+
                                   return SingleProduct(
                                     onTap: () {
                                       Navigator.push(
@@ -195,12 +204,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                     name: element.name,
                                     price: element.price,
                                     id: element.id,
+                                    // isAdd: providerData.snapshot.length > index
+                                    //     ? providerData.snapshot[index].isAdd
+                                    //     : false,
                                   );
                                 }).toList(),
                           ),
                 );
               },
             ),
+
             SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -257,7 +270,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           )
                           : Row(
                             children:
-                                provider.snapshot.map((element) {
+                                provider.snapshot.asMap().entries.map((entry) {
+                                  int index = entry.key;
+                                  var element = entry.value;
+
                                   return SingleProduct(
                                     onTap: () {
                                       Navigator.push(
@@ -276,6 +292,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     name: element.name,
                                     price: element.price,
                                     id: element.id,
+                                    // isAdd: providerData.snapshot.length > index
+                                    //     ? providerData.snapshot[index].isAdd
+                                    //     : false,
                                   );
                                 }).toList(),
                           ),
@@ -288,3 +307,106 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+// Consumer<HerbsProductProvider>(
+// builder: (context, provider, child) {
+// return SingleChildScrollView(
+// scrollDirection: Axis.horizontal,
+// child:
+// provider.isLoading
+// ? Row(
+// children: [
+// SizedBox(
+// width: MediaQuery.sizeOf(context).width / 2.2,
+// ),
+// SizedBox(
+// height: 250,
+// child: Center(
+// child: CircularProgressIndicator(),
+// ),
+// ),
+// ],
+// )
+//     : provider.error != null
+// ? Center(
+// child: Text('ERROR OCCURRED ${provider.error}'),
+// )
+//     : Row(
+// children:
+// provider.snapshot.map((element) {
+// return SingleProduct(
+// onTap: () {
+// Navigator.push(
+// context,
+// MaterialPageRoute(
+// builder:
+// (context) => DetailScreen(
+// imageUrl: element.image,
+// name: element.name,
+// price: element.price,
+// ),
+// ),
+// );
+// },
+// imageURL: element.image,
+// name: element.name,
+// price: element.price,
+// id: element.id,
+// isAdd: providerData.snapshot[0].isAdd
+// );
+// }).toList(),
+// ),
+// );
+// },
+// ),
+
+// Consumer<FreshFruitProductProvider>(
+// builder: (context, provider, child) {
+// return SingleChildScrollView(
+// scrollDirection: Axis.horizontal,
+// child:
+// provider.isLoading
+// ? Row(
+// children: [
+// SizedBox(
+// width: MediaQuery.sizeOf(context).width / 2.2,
+// ),
+// SizedBox(
+// height: 250,
+// child: Center(
+// child: CircularProgressIndicator(),
+// ),
+// ),
+// ],
+// )
+//     : provider.error != null
+// ? Center(
+// child: Text('ERROR OCCURRED ${provider.error}'),
+// )
+//     : Row(
+// children:
+// provider.snapshot.map((element) {
+// return SingleProduct(
+// onTap: () {
+// Navigator.push(
+// context,
+// MaterialPageRoute(
+// builder:
+// (context) => DetailScreen(
+// imageUrl: element.image,
+// name: element.name,
+// price: element.price,
+// ),
+// ),
+// );
+// },
+// imageURL: element.image,
+// name: element.name,
+// price: element.price,
+// id: element.id,
+// );
+// }).toList(),
+// ),
+// );
+// },
+// ),

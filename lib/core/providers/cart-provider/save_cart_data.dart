@@ -11,13 +11,14 @@ class SaveCartDataProvider extends ChangeNotifier {
     String price,
     String quantity,
   ) async {
-    try{
+    try {
       CartModel newData = CartModel(
         id: id,
         name: name,
         image: image,
         price: price,
         quantity: quantity,
+        isAdd: true,
       );
       await FirebaseFirestore.instance
           .collection('cartData')
@@ -25,7 +26,22 @@ class SaveCartDataProvider extends ChangeNotifier {
           .collection('YourCartData')
           .doc(id)
           .set(newData.toMap());
-    }catch(e){
+    } catch (e) {
+      print('❌❌ $e');
+    }
+  }
+
+  Future<void> updateData(String quantity,String id) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('cartData')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('YourCartData')
+          .doc(id)
+          .update({
+        'quantity' : quantity
+      });
+    } catch (e) {
       print('❌❌ $e');
     }
   }
