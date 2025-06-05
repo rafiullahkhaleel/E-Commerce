@@ -6,15 +6,17 @@ class SearchItems extends StatelessWidget {
   final String image;
   final String name;
   final String price;
+  final String? quantity;
   final VoidCallback? onDelete;
   const SearchItems({
     super.key,
     this.isBool = false,
     required this.image,
     required this.name,
-    required this.price, this.onDelete,
+    required this.price,
+    this.onDelete,
+    this.quantity,
   });
-
 
   @override
   Widget build(BuildContext context) {
@@ -117,18 +119,31 @@ class SearchItems extends StatelessWidget {
                           margin: EdgeInsets.symmetric(horizontal: 10),
                           height: 40,
                           decoration: BoxDecoration(
+                            color: Colors.white60,
                             border: Border.all(),
                             borderRadius: BorderRadius.circular(30),
                           ),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Icon(Icons.add, color: AppColors.primaryColor),
+                              InkWell(
+                                child: Icon(
+                                  Icons.remove,
+                                  color: Color(0xffd6b738),
+                                ),
+                              ),
                               Text(
-                                'ADD',
+                                quantity ?? '1',
                                 style: TextStyle(
-                                  color: AppColors.primaryColor,
+                                  color: Color(0xffd6b738),
                                   fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                ),
+                              ),
+                              InkWell(
+                                child: Icon(
+                                  Icons.add,
+                                  color: Color(0xffd6b738),
                                 ),
                               ),
                             ],
@@ -190,4 +205,3 @@ Future<void> showDeleteConfirmationDialog({
     },
   );
 }
-

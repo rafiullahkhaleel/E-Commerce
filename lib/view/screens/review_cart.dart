@@ -42,6 +42,7 @@ class _ReviewCartState extends State<ReviewCart> {
                       itemBuilder: (context, index) {
                     final data = provider.snapshot[index];
                         return SearchItems(
+                          quantity: data.quantity,
                           ///agr ye delete ka function na laga gya to Null Check ka error asakta hai
                           onDelete: (){
                             provider.delete(data.id);

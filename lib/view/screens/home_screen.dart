@@ -196,6 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 imageUrl: element.image,
                                                 name: element.name,
                                                 price: element.price,
+                                                id: element.id,
                                               ),
                                         ),
                                       );
@@ -284,6 +285,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 imageUrl: element.image,
                                                 name: element.name,
                                                 price: element.price,
+                                                id: element.id,
                                               ),
                                         ),
                                       );

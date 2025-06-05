@@ -1,15 +1,18 @@
 import 'package:e_commerce/core/constants/colors.dart';
+import 'package:e_commerce/core/providers/wishlist_provider/save_wishlist_data.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DetailScreen extends StatefulWidget {
   final String name;
   final String imageUrl;
   final String price;
+  final String id;
   const DetailScreen({
     super.key,
     required this.name,
     required this.imageUrl,
-    required this.price,
+    required this.price, required this.id,
   });
 
   @override
@@ -17,8 +20,10 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
+  bool isFavourite = false;
   @override
   Widget build(BuildContext context) {
+    SaveWishlistDataProvider provider = Provider.of(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.scaffoldBackground,
@@ -120,7 +125,19 @@ class _DetailScreenState extends State<DetailScreen> {
         bottomNavigationBar: Row(
           children: [
             Bottom(
-              icon: Icons.favorite_border,
+              onTap: (){
+                setState(() {
+                  isFavourite = !isFavourite;
+                });
+                if(isFavourite){
+                  provider.saveData(
+                      id: widget.id,
+                      name: widget.name,
+                      image: widget.imageUrl,
+                      price: widget.price);
+                }
+              },
+              icon: isFavourite ? Icons.favorite:Icons.favorite_border,
               title: 'Add to Wishlist',
               background: Colors.black,
             ),
@@ -140,27 +157,31 @@ class Bottom extends StatelessWidget {
   final Color background;
   final String title;
   final IconData icon;
+  final VoidCallback? onTap;
   const Bottom({
     super.key,
     required this.background,
     required this.title,
-    required this.icon,
+    required this.icon,  this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        color: background,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 15),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, color: Colors.white),
-              SizedBox(width: 10),
-              Text(title, style: TextStyle(color: Colors.white, fontSize: 17)),
-            ],
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          color: background,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(icon, color: Colors.white),
+                SizedBox(width: 10),
+                Text(title, style: TextStyle(color: Colors.white, fontSize: 17)),
+              ],
+            ),
           ),
         ),
       ),
