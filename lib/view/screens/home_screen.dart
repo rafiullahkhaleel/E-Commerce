@@ -1,13 +1,15 @@
 import 'package:e_commerce/core/constants/colors.dart';
 import 'package:e_commerce/core/models/product_model.dart';
 import 'package:e_commerce/core/providers/cart-provider/fetch_cart_data_provider.dart';
-import 'package:e_commerce/core/providers/fresh_fruit_provider.dart';
-import 'package:e_commerce/core/providers/herbs_product_provider.dart';
+import 'package:e_commerce/core/providers/fruit_provider/fresh_fruit_provider.dart';
+import 'package:e_commerce/core/providers/herb_provider/herbs_product_provider.dart';
+import 'package:e_commerce/core/providers/user_provider/user_data_provider.dart';
 import 'package:e_commerce/view/screens/detail/detial_screen.dart';
 import 'package:e_commerce/view/screens/review_cart_cart.dart';
 import 'package:e_commerce/view/screens/search_screen.dart';
 import 'package:e_commerce/view/widgets/my_drawer.dart';
 import 'package:e_commerce/view/widgets/single_product.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
         listen: false,
       ).fetchData();
       Provider.of<FetchCartDataProvider>(context, listen: false).fetchData();
+      Provider.of<FetchUserDataProvider>(context, listen: false).fetchData();
     });
     super.initState();
   }
@@ -85,7 +88,8 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: Color(0xFFd4d181),
               child: IconButton(
                 onPressed: () {
-                  Navigator.of(context).push(
+                  Navigator.push(
+                    context,
                     MaterialPageRoute(builder: (context) => ReviewCartScreen()),
                   );
                 },

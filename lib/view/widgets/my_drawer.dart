@@ -1,19 +1,19 @@
+import 'package:e_commerce/core/providers/user_provider/user_data_provider.dart';
 import 'package:e_commerce/view/screens/profile_screen.dart';
 import 'package:e_commerce/view/screens/review_cart_cart.dart';
 import 'package:e_commerce/view/screens/wishlist_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class MyDrawer extends StatefulWidget {
+class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
 
   @override
-  State<MyDrawer> createState() => _MyDrawerState();
-}
-
-class _MyDrawerState extends State<MyDrawer> {
-  @override
   Widget build(BuildContext context) {
+    FetchUserDataProvider provider = Provider.of<FetchUserDataProvider>(
+      context,
+    );
     return Drawer(
       backgroundColor: Color(0xffd6b738),
       child: ListView(
@@ -27,36 +27,36 @@ class _MyDrawerState extends State<MyDrawer> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(width: 3, color: Color(0xFFd4d181)),
-                ),
-                child: Center(
-                  child: Text(
-                    'Vegi',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  image: DecorationImage(
+                    image: NetworkImage(provider.userData!.image),
                   ),
                 ),
               ),
               SizedBox(width: 15),
-              Column(
-                children: [
-                  Text(
-                    'Welcome Guest',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                  OutlinedButton(
-                    onPressed: () {},
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(color: Colors.black),
-                    ),
-                    child: Text(
-                      'LOGIN',
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      provider.userData!.name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                        color: Colors.black,
+                        fontSize: 17,
                       ),
                     ),
-                  ),
-                ],
+                    Text(
+                      provider.userData!.email,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -91,8 +91,11 @@ class _MyDrawerState extends State<MyDrawer> {
             title: Text('Rating & Review'),
           ),
           ListTile(
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>WishlistScreen()));
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => WishlistScreen()),
+              );
             },
             leading: Icon(Icons.favorite_border),
             title: Text('Wishlist'),

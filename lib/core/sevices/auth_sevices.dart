@@ -62,12 +62,10 @@ class UserDataProvider extends ChangeNotifier {
     String uid,
   ) async {
     try {
-      await FirebaseFirestore.instance.collection('users').add({
-        'name': name,
-        'email': email,
-        'uid': uid,
-        'image': image,
-      });
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .set({'name': name, 'email': email, 'uid': uid, 'image': image});
     } catch (e) {
       print(e);
     }

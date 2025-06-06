@@ -1,7 +1,8 @@
 import 'package:e_commerce/core/providers/cart-provider/fetch_cart_data_provider.dart';
-import 'package:e_commerce/core/providers/fresh_fruit_provider.dart';
-import 'package:e_commerce/core/providers/herbs_product_provider.dart';
+import 'package:e_commerce/core/providers/fruit_provider/fresh_fruit_provider.dart';
+import 'package:e_commerce/core/providers/herb_provider/herbs_product_provider.dart';
 import 'package:e_commerce/core/providers/cart-provider/save_cart_data.dart';
+import 'package:e_commerce/core/providers/user_provider/user_data_provider.dart';
 import 'package:e_commerce/core/sevices/auth_sevices.dart';
 import 'package:e_commerce/firebase_options.dart';
 import 'package:e_commerce/view/screens/auth/sign_in_screen.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => FetchCartDataProvider()),
         ChangeNotifierProvider(create: (_) => SaveWishlistDataProvider()),
         ChangeNotifierProvider(create: (_) => FetchWishlistDataProvider()),
+        ChangeNotifierProvider(create: (_) => FetchUserDataProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

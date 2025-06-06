@@ -1,5 +1,7 @@
 import 'package:e_commerce/core/constants/colors.dart';
+import 'package:e_commerce/core/providers/user_provider/user_data_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -24,6 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    FetchUserDataProvider provider = Provider.of<FetchUserDataProvider>(context,listen: false);
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       drawer: Drawer(),
@@ -64,21 +67,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Rafiullah',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 19,
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        provider.userData!.name,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 19,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    'helloworld@gmail.com',
-                                    style: TextStyle(fontSize: 17),
-                                  ),
-                                ],
+                                    Text(
+                                      provider.userData!.email,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(fontSize: 17),
+                                    ),
+                                  ],
+                                ),
                               ),
                               SizedBox(width: 30), // تھوڑا سا gap دینے کے لیے
                               CircleAvatar(
@@ -132,18 +144,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   height: 90,
                   width: 90,
                   decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(provider.userData!.image),
+                    ),
                     color: AppColors.primaryColor,
                     shape: BoxShape.circle,
                     border: Border.all(width: 3, color: Color(0xFFd4d181)),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Vegi',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
                   ),
                 ),
               ),
