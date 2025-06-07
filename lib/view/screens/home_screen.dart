@@ -8,7 +8,7 @@ import 'package:e_commerce/view/screens/detail/detial_screen.dart';
 import 'package:e_commerce/view/screens/review_cart_cart.dart';
 import 'package:e_commerce/view/screens/search_screen.dart';
 import 'package:e_commerce/view/widgets/my_drawer.dart';
-import 'package:e_commerce/view/widgets/single_product.dart';
+import 'package:e_commerce/view/widgets/single_item.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -217,9 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     name: element.name,
                                     price: element.price,
                                     id: element.id,
-                                    // isAdd: providerData.snapshot.length > index
-                                    //     ? providerData.snapshot[index].isAdd
-                                    //     : false,
+                                    unitsList: element.units,
                                   );
                                 }).toList(),
                           ),
@@ -306,9 +304,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     name: element.name,
                                     price: element.price,
                                     id: element.id,
-                                    // isAdd: providerData.snapshot.length > index
-                                    //     ? providerData.snapshot[index].isAdd
-                                    //     : false,
+                                    unitsList: element.units,
                                   );
                                 }).toList(),
                           ),

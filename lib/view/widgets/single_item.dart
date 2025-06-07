@@ -1,7 +1,7 @@
 import 'package:e_commerce/view/widgets/count.dart';
 import 'package:flutter/material.dart';
 
-import 'bottom_sheet.dart';
+import 'unit.dart';
 
 class SingleProduct extends StatelessWidget {
   final String imageURL;
@@ -9,15 +9,14 @@ class SingleProduct extends StatelessWidget {
   final String price;
   final String id;
   final VoidCallback? onTap;
-  //final bool isAdd;
+  final  List<String> unitsList;
   const SingleProduct({
     super.key,
     required this.imageURL,
     required this.name,
     this.onTap,
     required this.price,
-    required this.id,
-    //required this.isAdd,
+    required this.id, required this.unitsList,
   });
 
   @override
@@ -77,54 +76,8 @@ class SingleProduct extends StatelessWidget {
                         child: Row(
                           children: [
                             Expanded(
-                              child: InkWell(
-                                onTap: (){
-                                  showModalBottomSheet(
-                                    context: context,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-                                    ),
-                                    backgroundColor: Colors.white,
-                                    builder: (context) {
-                                      return CustomBottomSheet(
-                                        onProfileTap: () {
-                                        },
-                                        onSettingsTap: () {
-                                        },
-                                        onLogoutTap: () {
-
-                                        },
-                                      );
-                                    },
-                                  );
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Colors.grey.shade600,
-                                    ),
-                                    borderRadius: BorderRadius.circular(50),
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Text(
-                                            price,
-                                            style: TextStyle(fontSize: 13),
-                                          ),
-                                          Icon(
-                                            Icons.arrow_drop_down,
-                                            color: Color(0xffd6b738),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                              child: Unit(
+                                unitsList: unitsList,
                               ),
                             ),
                             SizedBox(width: 5),
