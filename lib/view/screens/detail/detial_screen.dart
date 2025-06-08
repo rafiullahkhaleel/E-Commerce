@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/core/constants/colors.dart';
 import 'package:e_commerce/core/providers/wishlist_provider/fetch_wishlist_data.dart';
 import 'package:e_commerce/core/providers/wishlist_provider/save_wishlist_data.dart';
-import 'package:e_commerce/view/screens/review_cart_cart.dart';
+import 'package:e_commerce/view/screens/review_cart_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,12 +14,13 @@ class DetailScreen extends StatefulWidget {
   final String imageUrl;
   final String price;
   final String id;
+  final String selectedUnit;
   const DetailScreen({
     super.key,
     required this.name,
     required this.imageUrl,
     required this.price,
-    required this.id,
+    required this.id, required this.selectedUnit,
   });
 
   @override
@@ -104,7 +105,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             borderRadius: BorderRadius.circular(50),
                           ),
                           child: Count(
-                            //   isAdd: isAdd,
+                            selectedUnit: widget.selectedUnit,
                             imageURL: widget.imageUrl,
                             name: widget.name,
                             price: widget.price,

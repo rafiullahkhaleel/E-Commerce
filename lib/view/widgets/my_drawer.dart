@@ -1,6 +1,6 @@
 import 'package:e_commerce/core/providers/user_provider/user_data_provider.dart';
 import 'package:e_commerce/view/screens/profile_screen.dart';
-import 'package:e_commerce/view/screens/review_cart_cart.dart';
+import 'package:e_commerce/view/screens/review_cart_screen.dart';
 import 'package:e_commerce/view/screens/wishlist_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

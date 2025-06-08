@@ -5,7 +5,7 @@ import 'package:e_commerce/core/providers/fruit_provider/fresh_fruit_provider.da
 import 'package:e_commerce/core/providers/herb_provider/herbs_product_provider.dart';
 import 'package:e_commerce/core/providers/user_provider/user_data_provider.dart';
 import 'package:e_commerce/view/screens/detail/detial_screen.dart';
-import 'package:e_commerce/view/screens/review_cart_cart.dart';
+import 'package:e_commerce/view/screens/review_cart_screen.dart';
 import 'package:e_commerce/view/screens/search_screen.dart';
 import 'package:e_commerce/view/widgets/my_drawer.dart';
 import 'package:e_commerce/view/widgets/single_item.dart';
@@ -197,8 +197,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 provider.snapshot.asMap().entries.map((entry) {
                                   int index = entry.key;
                                   var element = entry.value;
+                                  String selectedUnit = element.units.first;
 
                                   return SingleProduct(
+                                    onUnitChanged: (value) {
+                                      selectedUnit = value;
+                                    },
                                     onTap: () {
                                       Navigator.push(
                                         context,
@@ -209,6 +213,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 name: element.name,
                                                 price: element.price,
                                                 id: element.id,
+                                                selectedUnit: selectedUnit,
                                               ),
                                         ),
                                       );
@@ -284,8 +289,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 provider.snapshot.asMap().entries.map((entry) {
                                   int index = entry.key;
                                   var element = entry.value;
+                                  String selectedUnit = element.units.first;
 
                                   return SingleProduct(
+                                    onUnitChanged: (value) {
+                                      selectedUnit = value;
+                                    },
                                     onTap: () {
                                       Navigator.push(
                                         context,
@@ -296,6 +305,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 name: element.name,
                                                 price: element.price,
                                                 id: element.id,
+                                                selectedUnit: selectedUnit,
                                               ),
                                         ),
                                       );
@@ -317,106 +327,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-// Consumer<HerbsProductProvider>(
-// builder: (context, provider, child) {
-// return SingleChildScrollView(
-// scrollDirection: Axis.horizontal,
-// child:
-// provider.isLoading
-// ? Row(
-// children: [
-// SizedBox(
-// width: MediaQuery.sizeOf(context).width / 2.2,
-// ),
-// SizedBox(
-// height: 250,
-// child: Center(
-// child: CircularProgressIndicator(),
-// ),
-// ),
-// ],
-// )
-//     : provider.error != null
-// ? Center(
-// child: Text('ERROR OCCURRED ${provider.error}'),
-// )
-//     : Row(
-// children:
-// provider.snapshot.map((element) {
-// return SingleProduct(
-// onTap: () {
-// Navigator.push(
-// context,
-// MaterialPageRoute(
-// builder:
-// (context) => DetailScreen(
-// imageUrl: element.image,
-// name: element.name,
-// price: element.price,
-// ),
-// ),
-// );
-// },
-// imageURL: element.image,
-// name: element.name,
-// price: element.price,
-// id: element.id,
-// isAdd: providerData.snapshot[0].isAdd
-// );
-// }).toList(),
-// ),
-// );
-// },
-// ),
-
-// Consumer<FreshFruitProductProvider>(
-// builder: (context, provider, child) {
-// return SingleChildScrollView(
-// scrollDirection: Axis.horizontal,
-// child:
-// provider.isLoading
-// ? Row(
-// children: [
-// SizedBox(
-// width: MediaQuery.sizeOf(context).width / 2.2,
-// ),
-// SizedBox(
-// height: 250,
-// child: Center(
-// child: CircularProgressIndicator(),
-// ),
-// ),
-// ],
-// )
-//     : provider.error != null
-// ? Center(
-// child: Text('ERROR OCCURRED ${provider.error}'),
-// )
-//     : Row(
-// children:
-// provider.snapshot.map((element) {
-// return SingleProduct(
-// onTap: () {
-// Navigator.push(
-// context,
-// MaterialPageRoute(
-// builder:
-// (context) => DetailScreen(
-// imageUrl: element.image,
-// name: element.name,
-// price: element.price,
-// ),
-// ),
-// );
-// },
-// imageURL: element.image,
-// name: element.name,
-// price: element.price,
-// id: element.id,
-// );
-// }).toList(),
-// ),
-// );
-// },
-// ),

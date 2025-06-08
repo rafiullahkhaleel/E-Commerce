@@ -65,7 +65,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   id: data.id,
                   isBool: true,
                   image: data.image,
-                  price: data.price,
+                  unit: data.price,
                   name: data.name,
                 );
               }),

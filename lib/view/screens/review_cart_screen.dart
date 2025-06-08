@@ -62,7 +62,7 @@ class _ReviewCartScreenState extends State<ReviewCartScreen> {
                           },
                           image: data.image,
                           name: data.name,
-                          price: data.price,
+                          unit: data.unit ?? '',
                           isReviewCart: true,
                         );
                       },

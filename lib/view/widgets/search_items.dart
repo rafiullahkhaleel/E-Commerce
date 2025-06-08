@@ -6,7 +6,7 @@ class SearchItems extends StatelessWidget {
   final bool isBool;
   final String image;
   final String name;
-  final String price;
+  final String unit;
   final String? quantity;
 
   final VoidCallback? onDelete;
@@ -18,7 +18,7 @@ class SearchItems extends StatelessWidget {
     this.isReviewCart = false,
     required this.image,
     required this.name,
-    required this.price,
+    required this.unit,
     this.onDelete,
     this.quantity,
     this.id,
@@ -66,13 +66,13 @@ class SearchItems extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(price, style: TextStyle(fontSize: 15)),
+                            Text(unit, style: TextStyle(fontSize: 15)),
                             Icon(Icons.arrow_drop_down),
                           ],
                         ),
                       ),
                     )
-                    : Text(price, style: TextStyle(fontSize: 15)),
+                    : Text(unit, style: TextStyle(fontSize: 15)),
               ],
             ),
           ),
@@ -94,9 +94,10 @@ class SearchItems extends StatelessWidget {
                             borderRadius: BorderRadius.circular(50),
                           ),
                           child: Count(
+                            selectedUnit: unit,
                             imageURL: image,
                             name: name,
-                            price: price,
+                            price: unit,
                             id: id!,
                           ),
                         ),
@@ -125,9 +126,10 @@ class SearchItems extends StatelessWidget {
                             borderRadius: BorderRadius.circular(50),
                           ),
                           child: Count(
+                            selectedUnit: unit,
                             imageURL: image,
                             name: name,
-                            price: price,
+                            price: unit,
                             id: id!,
                           ),
                         ),

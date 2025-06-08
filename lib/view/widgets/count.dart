@@ -10,13 +10,14 @@ class Count extends StatefulWidget {
   final String name;
   final String price;
   final String id;
+  final String selectedUnit;
 
   const Count({
     super.key,
     required this.imageURL,
     required this.name,
     required this.price,
-    required this.id,
+    required this.id, required this.selectedUnit,
   });
 
   @override
@@ -67,7 +68,7 @@ class _CountState extends State<Count> {
                         InkWell(
                           onTap: () {
                             if (quantity > 1) {
-                              provider.updateData(
+                              provider.updateQuantity(
                                 quantity: (quantity - 1).toString(),
                                 id: widget.id,
                               );
@@ -90,7 +91,7 @@ class _CountState extends State<Count> {
                               quantity >= 100
                                   ? null
                                   : () {
-                                    provider.updateData(
+                                    provider.updateQuantity(
                                       quantity: (quantity + 1).toString(),
                                       id: widget.id,
                                     );
@@ -102,6 +103,7 @@ class _CountState extends State<Count> {
                     : InkWell(
                       onTap: () {
                         provider.saveData(
+                          selectedUnit: widget.selectedUnit,
                           id: widget.id,
                           name: widget.name,
                           image: widget.imageURL,

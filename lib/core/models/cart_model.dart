@@ -4,6 +4,7 @@ class CartModel {
   final String image;
   final String price;
   final String quantity;
+  final String unit;         // ✅ نیا فیلڈ
   final bool isAdd;
 
   CartModel({
@@ -12,6 +13,7 @@ class CartModel {
     required this.image,
     required this.price,
     required this.quantity,
+    required this.unit,       // ✅ کنسٹرکٹر میں شامل
     required this.isAdd,
   });
 
@@ -22,7 +24,8 @@ class CartModel {
       image: map['image'] ?? '',
       price: map['price'] ?? '',
       quantity: map['quantity'] ?? '',
-      isAdd: map['isAdd'] ?? '',
+      unit: map['unit'] ?? '',            // ✅ fromMap میں شامل
+      isAdd: map['isAdd'] ?? false,
     );
   }
 
@@ -33,6 +36,7 @@ class CartModel {
       'image': image,
       'price': price,
       'quantity': quantity,
+      'unit': unit,                      // ✅ toMap میں شامل
       'isAdd': isAdd,
     };
   }

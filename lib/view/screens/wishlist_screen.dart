@@ -63,7 +63,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
                           },
                           image: data.image,
                           name: data.name,
-                          price: data.price,
+                          unit: data.price,
                         );
                       },
                     ),
