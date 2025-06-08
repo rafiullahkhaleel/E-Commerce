@@ -152,7 +152,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           MaterialPageRoute(
                             builder:
                                 (context) =>
-                                    SearchScreen(searchList: provider.snapshot),
+                                    SearchScreen(
+                                        searchList: provider.snapshot,
+                                    ),
                           ),
                         );
                       },

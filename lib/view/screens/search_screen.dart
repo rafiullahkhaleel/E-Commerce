@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
  final List<ProductModel> searchList;
-  const SearchScreen({super.key, required this.searchList});
+  const SearchScreen({super.key, required this.searchList, });
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -65,8 +65,9 @@ class _SearchScreenState extends State<SearchScreen> {
                   id: data.id,
                   isBool: true,
                   image: data.image,
-                  unit: data.price,
+                  price: data.price,
                   name: data.name,
+                  unitsList: data.units,
                 );
               }),
             ),

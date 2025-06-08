@@ -57,9 +57,9 @@ class _UnitState extends State<Unit> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    width: 40,
-                    height: 4,
-                    margin: EdgeInsets.only(bottom: 16),
+                    width: 35,
+                    height: 2,
+                    margin: EdgeInsets.only(bottom: 10),
                     decoration: BoxDecoration(
                       color: Colors.grey[400],
                       borderRadius: BorderRadius.circular(10),
@@ -92,26 +92,22 @@ class _UnitState extends State<Unit> {
       },
       child: Container(
         padding: EdgeInsets.only(left: 3),
+        width: 90,
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey.shade600),
           borderRadius: BorderRadius.circular(50),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Row(
           children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    currentUnit,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 13),
-                  )
-                ),
-                Icon(Icons.arrow_drop_down, color: Color(0xffd6b738)),
-              ],
+            Expanded(
+              child: Text(
+                currentUnit,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 13),
+              )
             ),
+            Icon(Icons.arrow_drop_down, color: Color(0xffd6b738)),
           ],
         ),
       ),

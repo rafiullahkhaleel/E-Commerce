@@ -1,29 +1,44 @@
 import 'package:e_commerce/core/constants/colors.dart';
 import 'package:e_commerce/view/widgets/count.dart';
+import 'package:e_commerce/view/widgets/unit.dart';
 import 'package:flutter/material.dart';
 
-class SearchItems extends StatelessWidget {
+class SearchItems extends StatefulWidget {
   final bool isBool;
   final String image;
   final String name;
-  final String unit;
+  final String price;
   final String? quantity;
 
   final VoidCallback? onDelete;
   final bool isReviewCart;
   final String? id;
+  final List<String>? unitsList;
   const SearchItems({
     super.key,
     this.isBool = false,
     this.isReviewCart = false,
     required this.image,
     required this.name,
-    required this.unit,
+    required this.price,
     this.onDelete,
     this.quantity,
     this.id,
+    this.unitsList,
   });
 
+  @override
+  State<SearchItems> createState() => _SearchItemsState();
+}
+
+class _SearchItemsState extends State<SearchItems> {
+  String selectedUnit = ''; // ✅ store unit locally
+
+  @override
+  void initState() {
+    super.initState();
+    selectedUnit = widget.unitsList?.first ?? '';
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -37,7 +52,7 @@ class SearchItems extends StatelessWidget {
               color: Colors.green,
               height: 90,
               width: 90,
-              child: Image.network(image),
+              child: Image.network(widget.image),
             ),
           ),
           SizedBox(width: 15),
@@ -47,32 +62,40 @@ class SearchItems extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  name,
+                  widget.name,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                 ),
                 Text('50\$/50 Gram', style: TextStyle(fontSize: 15)),
-                Spacer(),
-                isBool == true
-                    ? Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      height: 35,
-
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(unit, style: TextStyle(fontSize: 15)),
-                            Icon(Icons.arrow_drop_down),
-                          ],
-                        ),
-                      ),
-                    )
-                    : Text(unit, style: TextStyle(fontSize: 15)),
+                SizedBox(height: 7,),
+                widget.isBool == true
+                ? Expanded(
+                  child: Unit(
+                    unitsList: widget.unitsList ?? [],
+                    id: widget.id!,
+                    onUnitChanged: (value) {
+                      selectedUnit = value;
+                    },),
+                )
+                    // ? Container(
+                    //   margin: EdgeInsets.symmetric(horizontal: 10),
+                    //   height: 35,
+                    //
+                    //   decoration: BoxDecoration(
+                    //     border: Border.all(),
+                    //     borderRadius: BorderRadius.circular(20),
+                    //   ),
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.symmetric(horizontal: 20),
+                    //     child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //       children: [
+                    //         Text(widget.price, style: TextStyle(fontSize: 15)),
+                    //         Icon(Icons.arrow_drop_down),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // )
+                    : Text(widget.price, style: TextStyle(fontSize: 15)),
               ],
             ),
           ),
@@ -81,7 +104,7 @@ class SearchItems extends StatelessWidget {
             height: 100,
             width: 120,
             child:
-                isBool == true
+                widget.isBool == true
                     ? Column(
                       children: [
                         Spacer(),
@@ -94,17 +117,17 @@ class SearchItems extends StatelessWidget {
                             borderRadius: BorderRadius.circular(50),
                           ),
                           child: Count(
-                            selectedUnit: unit,
-                            imageURL: image,
-                            name: name,
-                            price: unit,
-                            id: id!,
+                            selectedUnit: selectedUnit,
+                            imageURL: widget.image,
+                            name: widget.name,
+                            price: widget.price,
+                            id: widget.id!,
                           ),
                         ),
                         Spacer(),
                       ],
                     )
-                    : isReviewCart
+                    : widget.isReviewCart
                     ? Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -112,7 +135,7 @@ class SearchItems extends StatelessWidget {
                           onTap: () {
                             showDeleteConfirmationDialog(
                               context: context,
-                              onDelete: onDelete!,
+                              onDelete: widget.onDelete!,
                             );
                           },
                           child: Icon(Icons.delete, size: 30),
@@ -126,11 +149,11 @@ class SearchItems extends StatelessWidget {
                             borderRadius: BorderRadius.circular(50),
                           ),
                           child: Count(
-                            selectedUnit: unit,
-                            imageURL: image,
-                            name: name,
-                            price: unit,
-                            id: id!,
+                            selectedUnit: widget.price,
+                            imageURL: widget.image,
+                            name: widget.name,
+                            price: widget.price,
+                            id: widget.id!,
                           ),
                         ),
                       ],
@@ -140,7 +163,7 @@ class SearchItems extends StatelessWidget {
                         onTap: () {
                           showDeleteConfirmationDialog(
                             context: context,
-                            onDelete: onDelete!,
+                            onDelete: widget.onDelete!,
                           );
                         },
                         child: Icon(Icons.delete, size: 30),
