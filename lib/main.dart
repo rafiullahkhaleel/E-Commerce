@@ -7,6 +7,7 @@ import 'package:e_commerce/core/sevices/auth_sevices.dart';
 import 'package:e_commerce/firebase_options.dart';
 import 'package:e_commerce/view/screens/auth/sign_in_screen.dart';
 import 'package:e_commerce/view/screens/home_screen.dart';
+import 'package:e_commerce/view/widgets/unit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => SaveWishlistDataProvider()),
         ChangeNotifierProvider(create: (_) => FetchWishlistDataProvider()),
         ChangeNotifierProvider(create: (_) => FetchUserDataProvider()),
+        ChangeNotifierProvider(create: (_) => SaveCartDataProvid()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

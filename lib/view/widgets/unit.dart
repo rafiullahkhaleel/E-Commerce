@@ -29,11 +29,17 @@ class _UnitState extends State<Unit> {
   void initState() {
     super.initState();
     selectedUnit = widget.unitsList.first;
-    widget.onUnitChanged(selectedUnit); // ✅ first time notify parent
+    widget.onUnitChanged(selectedUnit);
+    Provider.of<SaveCartDataProvid>(context, listen: false)
+        .listenToUnit(widget.id);// ✅ first time notify parent
   }
 
   @override
   Widget build(BuildContext context) {
+    final provid = Provider.of<SaveCartDataProvid>(context);
+    final currentUnit = provid.getUnit(widget.id).isNotEmpty
+        ? provid.getUnit(widget.id)
+        : selectedUnit;
     final provider = Provider.of<SaveCartDataProvider>(context, listen: false);
 
     return InkWell(
@@ -96,29 +102,12 @@ class _UnitState extends State<Unit> {
             Row(
               children: [
                 Expanded(
-                  child: StreamBuilder<DocumentSnapshot>(
-                    stream:
-                        FirebaseFirestore.instance
-                            .collection('cartData')
-                            .doc(FirebaseAuth.instance.currentUser!.uid)
-                            .collection('YourCartData')
-                            .doc(widget.id)
-                            .snapshots(),
-                    builder: (context, snapshot) {
-                      final doc = snapshot.data;
-                      final String quantityString =
-                          (doc != null && doc.exists)
-                              ? doc.get('unit')
-                              : selectedUnit;
-
-                      return Text(
-                        quantityString,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 13),
-                      );
-                    },
-                  ),
+                  child: Text(
+                    currentUnit,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 13),
+                  )
                 ),
                 Icon(Icons.arrow_drop_down, color: Color(0xffd6b738)),
               ],
@@ -129,3 +118,55 @@ class _UnitState extends State<Unit> {
     );
   }
 }
+
+
+class SaveCartDataProvid with ChangeNotifier {
+  Map<String, String> _productUnits = {};
+
+  String getUnit(String productId) {
+    return _productUnits[productId] ?? '';
+  }
+
+  void listenToUnit(String productId) {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+
+    FirebaseFirestore.instance
+        .collection('cartData')
+        .doc(uid)
+        .collection('YourCartData')
+        .doc(productId)
+        .snapshots()
+        .listen((doc) {
+      if (doc.exists && doc.data()!.containsKey('unit')) {
+        _productUnits[productId] = doc['unit'];
+        notifyListeners();
+      }
+    });
+  }
+}
+
+
+
+// StreamBuilder<DocumentSnapshot>(
+// stream:
+// FirebaseFirestore.instance
+//     .collection('cartData')
+//     .doc(FirebaseAuth.instance.currentUser!.uid)
+//     .collection('YourCartData')
+//     .doc(widget.id)
+//     .snapshots(),
+// builder: (context, snapshot) {
+// final doc = snapshot.data;
+// final String quantityString =
+// (doc != null && doc.exists)
+// ? doc.get('unit')
+//     : selectedUnit;
+//
+// return Text(
+// quantityString,
+// maxLines: 1,
+// overflow: TextOverflow.ellipsis,
+// style: TextStyle(fontSize: 13),
+// );
+// },
+// ),
