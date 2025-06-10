@@ -140,29 +140,3 @@ class SaveCartDataProvid with ChangeNotifier {
     });
   }
 }
-
-
-
-// StreamBuilder<DocumentSnapshot>(
-// stream:
-// FirebaseFirestore.instance
-//     .collection('cartData')
-//     .doc(FirebaseAuth.instance.currentUser!.uid)
-//     .collection('YourCartData')
-//     .doc(widget.id)
-//     .snapshots(),
-// builder: (context, snapshot) {
-// final doc = snapshot.data;
-// final String quantityString =
-// (doc != null && doc.exists)
-// ? doc.get('unit')
-//     : selectedUnit;
-//
-// return Text(
-// quantityString,
-// maxLines: 1,
-// overflow: TextOverflow.ellipsis,
-// style: TextStyle(fontSize: 13),
-// );
-// },
-// ),

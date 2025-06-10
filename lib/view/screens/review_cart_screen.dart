@@ -30,6 +30,17 @@ class _ReviewCartScreenState extends State<ReviewCartScreen> {
             title: Text('Review Cart'),
             backgroundColor: AppColors.primaryColor,
             centerTitle: true,
+            actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => ReviewCartScreen()),
+                  );
+                },
+                icon: Icon(Icons.refresh),
+              ),
+            ],
           ),
           body:
               provider.isLoading
@@ -48,24 +59,47 @@ class _ReviewCartScreenState extends State<ReviewCartScreen> {
                   )
                   : Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: ListView.builder(
-                      itemCount: provider.snapshot.length,
-                      itemBuilder: (context, index) {
-                        final data = provider.snapshot[index];
-                        return SearchItems(
-                          id: data.id,
-                          quantity: data.quantity,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: provider.snapshot.length,
+                            itemBuilder: (context, index) {
+                              final data = provider.snapshot[index];
+                              return SearchItems(
+                                id: data.id,
+                                quantity: data.quantity,
 
-                          ///agr ye delete ka function na laga gya to Null Check ka error asakta hai
-                          onDelete: () {
-                            provider.delete(data.id);
-                          },
-                          image: data.image,
-                          name: data.name,
-                          price: data.unit ?? '',
-                          isReviewCart: true,
-                        );
-                      },
+                                ///agr ye delete ka function na laga gya to Null Check ka error asakta hai
+                                onDelete: () {
+                                  provider.delete(data.id);
+                                },
+                                image: data.image,
+                                name: data.name,
+                                price: data.price ?? '',
+                                isReviewCart: true,
+                              );
+                            },
+                          ),
+                        ),
+                        ListTile(
+                          contentPadding: EdgeInsets.all(0),
+                          title: Text('Total Amount'),
+                          subtitle: Text(
+                            provider.getTotal().toString(),
+                            style: TextStyle(fontSize: 17),
+                          ),
+                          trailing: ElevatedButton(
+                            onPressed: () {},
+                            child: Text('Submit'),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.primaryColor,
+                              foregroundColor: Colors.black,
+                              padding: EdgeInsets.symmetric(horizontal: MediaQuery.sizeOf(context).width * .15)
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
         );

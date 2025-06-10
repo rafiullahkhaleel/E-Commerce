@@ -77,7 +77,7 @@ class _SingleProductState extends State<SingleProduct> {
                       ),
                     ),
                     Text(
-                      '50\$/50 Gram',
+                      '${widget.price}\$/50 Gram',
                       style: TextStyle(
                         fontSize: 15,
                         color: Colors.grey.shade600,

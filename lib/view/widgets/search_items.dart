@@ -65,7 +65,7 @@ class _SearchItemsState extends State<SearchItems> {
                   widget.name,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                 ),
-                Text('50\$/50 Gram', style: TextStyle(fontSize: 15)),
+                Text('${widget.price}\$/50 Gram', style: TextStyle(fontSize: 15)),
                 SizedBox(height: 7,),
                 widget.isBool == true
                 ? Expanded(
@@ -76,25 +76,6 @@ class _SearchItemsState extends State<SearchItems> {
                       selectedUnit = value;
                     },),
                 )
-                    // ? Container(
-                    //   margin: EdgeInsets.symmetric(horizontal: 10),
-                    //   height: 35,
-                    //
-                    //   decoration: BoxDecoration(
-                    //     border: Border.all(),
-                    //     borderRadius: BorderRadius.circular(20),
-                    //   ),
-                    //   child: Padding(
-                    //     padding: const EdgeInsets.symmetric(horizontal: 20),
-                    //     child: Row(
-                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //       children: [
-                    //         Text(widget.price, style: TextStyle(fontSize: 15)),
-                    //         Icon(Icons.arrow_drop_down),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // )
                     : Text(widget.price, style: TextStyle(fontSize: 15)),
               ],
             ),

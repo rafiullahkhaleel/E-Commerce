@@ -50,4 +50,12 @@ class FetchCartDataProvider extends ChangeNotifier {
     });
     notifyListeners();
   }
+
+  double getTotal(){
+    double total = 0.0;
+    _snapshot.forEach((data){
+      total += double.parse(data.price) * double.parse(data.quantity);
+    });
+    return total;
+  }
 }
