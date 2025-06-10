@@ -1,5 +1,6 @@
 import 'package:e_commerce/core/constants/colors.dart';
 import 'package:e_commerce/core/providers/cart-provider/fetch_cart_data_provider.dart';
+import 'package:e_commerce/view/screens/checkout/delivery_detail_screen.dart';
 import 'package:e_commerce/view/widgets/search_items.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -90,13 +91,23 @@ class _ReviewCartScreenState extends State<ReviewCartScreen> {
                             style: TextStyle(fontSize: 17),
                           ),
                           trailing: ElevatedButton(
-                            onPressed: () {},
-                            child: Text('Submit'),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DeliveryDetailScreen(),
+                                ),
+                              );
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.primaryColor,
                               foregroundColor: Colors.black,
-                              padding: EdgeInsets.symmetric(horizontal: MediaQuery.sizeOf(context).width * .15)
+                              padding: EdgeInsets.symmetric(
+                                horizontal:
+                                    MediaQuery.sizeOf(context).width * .15,
+                              ),
                             ),
+                            child: Text('Submit'),
                           ),
                         ),
                       ],

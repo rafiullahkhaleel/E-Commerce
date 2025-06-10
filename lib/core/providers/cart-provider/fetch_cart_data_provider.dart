@@ -44,16 +44,17 @@ class FetchCartDataProvider extends ChangeNotifier {
         .collection('cartData')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .collection('YourCartData')
-        .doc(id).delete();
-    _snapshot.removeWhere((docs){
-     return docs.id == id;
+        .doc(id)
+        .delete();
+    _snapshot.removeWhere((docs) {
+      return docs.id == id;
     });
     notifyListeners();
   }
 
-  double getTotal(){
+  double getTotal() {
     double total = 0.0;
-    _snapshot.forEach((data){
+    _snapshot.forEach((data) {
       total += double.parse(data.price) * double.parse(data.quantity);
     });
     return total;
