@@ -1,4 +1,5 @@
 import 'package:e_commerce/core/constants/colors.dart';
+import 'package:e_commerce/view/screens/checkout/add_delivery_address.dart';
 import 'package:flutter/material.dart';
 
 class DeliveryDetailScreen extends StatelessWidget {
@@ -94,7 +95,12 @@ class DeliveryDetailScreen extends StatelessWidget {
         height: 60,
         margin: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
         child: MaterialButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AddDeliveryAddress()),
+            );
+          },
           color: AppColors.primaryColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),

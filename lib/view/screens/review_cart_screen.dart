@@ -32,15 +32,17 @@ class _ReviewCartScreenState extends State<ReviewCartScreen> {
             backgroundColor: AppColors.primaryColor,
             centerTitle: true,
             actions: [
-              IconButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => ReviewCartScreen()),
-                  );
-                },
-                icon: Icon(Icons.refresh),
-              ),
+             Visibility(
+               visible: provider.snapshot.isNotEmpty,
+               child:  IconButton(
+               onPressed: () {
+                 Navigator.pushReplacement(
+                   context,
+                   MaterialPageRoute(builder: (context) => ReviewCartScreen()),
+                 );
+               },
+               icon: Icon(Icons.refresh),
+             ),)
             ],
           ),
           body:
