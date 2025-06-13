@@ -153,7 +153,14 @@ class DeliveryDetailScreen extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddDeliveryAddressScreen(),
+            ),
+          );
+        },
         backgroundColor: AppColors.primaryColor,
         shape: CircleBorder(),
         child: Icon(Icons.add, color: Colors.white),

@@ -13,6 +13,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'core/providers/check_out_provider/add_delivery_address_provider.dart';
 import 'core/providers/wishlist_provider/fetch_wishlist_data.dart';
 import 'core/providers/wishlist_provider/save_wishlist_data.dart';
 
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => FetchWishlistDataProvider()),
         ChangeNotifierProvider(create: (_) => FetchUserDataProvider()),
         ChangeNotifierProvider(create: (_) => SaveCartDataProvid()),
+        ChangeNotifierProvider(create: (_)=>AddDeliveryAddressProvider())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
