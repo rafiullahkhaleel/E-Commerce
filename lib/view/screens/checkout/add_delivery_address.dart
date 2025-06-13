@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 
 import '../../../core/constants/colors.dart';
 
-class AddDeliveryAddress extends StatefulWidget {
-  const AddDeliveryAddress({super.key});
+class AddDeliveryAddressScreen extends StatefulWidget {
+  const AddDeliveryAddressScreen({super.key});
 
   @override
-  State<AddDeliveryAddress> createState() => _AddDeliveryAddressState();
+  State<AddDeliveryAddressScreen> createState() => _AddDeliveryAddressScreenState();
 }
 
 enum AddressType { home, workPlace, other }
 
-class _AddDeliveryAddressState extends State<AddDeliveryAddress> {
+class _AddDeliveryAddressScreenState extends State<AddDeliveryAddressScreen> {
   AddressType addressType = AddressType.home;
 
   @override
