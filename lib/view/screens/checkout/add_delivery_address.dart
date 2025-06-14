@@ -1,3 +1,4 @@
+import 'package:e_commerce/view/screens/checkout/google_map_srceen.dart';
 import 'package:e_commerce/view/widgets/custom_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -93,7 +94,11 @@ class _AddDeliveryAddressScreenState extends State<AddDeliveryAddressScreen> {
                   ),
                 ),
                 SizedBox(height: 15),
-                Text('Set Location', style: TextStyle(fontSize: 16)),
+                InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>GoogleMapScreen()));
+                    },
+                    child: Text('Set Location', style: TextStyle(fontSize: 16))),
                 Divider(color: Colors.black45),
                 ListTile(title: Text('Address Type*')),
                 RadioListTile<AddressType>(
