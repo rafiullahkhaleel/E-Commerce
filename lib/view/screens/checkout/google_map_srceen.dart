@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:provider/provider.dart';
+
+import '../../../core/constants/colors.dart';
+import '../../../core/providers/check_out_provider/add_delivery_address_provider.dart';
 
 class GoogleMapScreen extends StatefulWidget {
   const GoogleMapScreen({super.key});
@@ -40,7 +44,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       return Future.error('Location permissions are permanently denied.');
     }
 
-    // ✅ More accurate location
     Position position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.best,
     );
@@ -49,14 +52,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       currentPosition = LatLng(position.latitude, position.longitude);
     });
 
-    // ✅ Move the camera if map is already created
     if (mapController != null) {
       mapController!.animateCamera(
         CameraUpdate.newCameraPosition(
-          CameraPosition(
-            target: currentPosition!,
-            zoom: 16,
-          ),
+          CameraPosition(target: currentPosition!, zoom: 16),
         ),
       );
     }
@@ -65,14 +64,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
 
-    // ✅ اگر currentPosition پہلے سے available ہے تو camera move کریں
     if (currentPosition != null) {
       controller.animateCamera(
         CameraUpdate.newCameraPosition(
-          CameraPosition(
-            target: currentPosition!,
-            zoom: 16,
-          ),
+          CameraPosition(target: currentPosition!, zoom: 16),
         ),
       );
     }
@@ -80,148 +75,48 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<AddDeliveryAddressProvider>(
+      context,
+      listen: false,
+    );
     return Scaffold(
       appBar: AppBar(title: Text("Google Map")),
-      body: currentPosition == null
-          ? Center(child: CircularProgressIndicator())
-          : GoogleMap(
-        onMapCreated: _onMapCreated,
-        myLocationEnabled: true,
-        myLocationButtonEnabled: true,
-        initialCameraPosition: CameraPosition(
-          target: currentPosition!,
-          zoom: 16,
-        ),
+      body: Stack(
+        children: [
+          currentPosition == null
+              ? Center(child: CircularProgressIndicator())
+              : GoogleMap(
+                onMapCreated: _onMapCreated,
+                myLocationEnabled: true,
+                myLocationButtonEnabled: true,
+                initialCameraPosition: CameraPosition(
+                  target: currentPosition!,
+                  zoom: 16,
+                ),
+              ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10, bottom: 20),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: MaterialButton(
+                height: 60,
+                minWidth: double.infinity,
+                onPressed: () {
+                  provider.latitude = currentPosition?.latitude ?? 0;
+                  provider.longitude = currentPosition?.longitude ?? 0;
+                  Navigator.of(context).pop();
+                },
+                color: AppColors.primaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child:
+                    Text('Add Address', style: TextStyle(fontSize: 17)),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
-
-
-
-
-
-
-
-// import 'package:flutter/material.dart';
-// import 'package:google_maps_flutter/google_maps_flutter.dart';
-// import 'package:geolocator/geolocator.dart';
-//
-// class GoogleMapScreen extends StatefulWidget {
-//   const GoogleMapScreen({super.key});
-//
-//   @override
-//   State<GoogleMapScreen> createState() => _GoogleMapScreenState();
-// }
-//
-// class _GoogleMapScreenState extends State<GoogleMapScreen> {
-//   late GoogleMapController mapController;
-//   LatLng? currentPosition;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     getCurrentLocation();
-//   }
-//
-//   Future<void> getCurrentLocation() async {
-//     bool serviceEnabled;
-//     LocationPermission permission;
-//
-//     // Check if location services are enabled
-//     serviceEnabled = await Geolocator.isLocationServiceEnabled();
-//     if (!serviceEnabled) {
-//       return Future.error('Location services are disabled.');
-//     }
-//
-//     // Check permission
-//     permission = await Geolocator.checkPermission();
-//     if (permission == LocationPermission.denied) {
-//       permission = await Geolocator.requestPermission();
-//       if (permission == LocationPermission.denied) {
-//         return Future.error('Location permissions are denied');
-//       }
-//     }
-//
-//     if (permission == LocationPermission.deniedForever) {
-//       return Future.error(
-//           'Location permissions are permanently denied, we cannot request permissions.');
-//     }
-//
-//     // Get the current position
-//     Position position = await Geolocator.getCurrentPosition();
-//     setState(() {
-//       currentPosition = LatLng(position.latitude, position.longitude);
-//     });
-//   }
-//
-//   void _onMapCreated(GoogleMapController controller) {
-//     mapController = controller;
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: Text("Google Map")),
-//       body: currentPosition == null
-//           ? Center(child: CircularProgressIndicator())
-//           : GoogleMap(
-//         onMapCreated: _onMapCreated,
-//         myLocationEnabled: true,
-//         myLocationButtonEnabled: true,
-//         initialCameraPosition: CameraPosition(
-//           target: currentPosition!,
-//           zoom: 15,
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import 'package:flutter/material.dart';
-// import 'package:google_maps_flutter/google_maps_flutter.dart';
-//
-// class GoogleMapScreen extends StatefulWidget {
-//   const GoogleMapScreen({super.key});
-//
-//   @override
-//   State<GoogleMapScreen> createState() => _GoogleMapScreenState();
-// }
-//
-// class _GoogleMapScreenState extends State<GoogleMapScreen> {
-//   late GoogleMapController mapController;
-//   final LatLng initialPosition = LatLng(34.10312, 71.47889);
-//
-//   void _onMapCreated(GoogleMapController controller) {
-//     mapController = controller;
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(),
-//       body: GoogleMap(
-//         myLocationEnabled: true,
-//         onMapCreated: _onMapCreated,
-//         initialCameraPosition: CameraPosition(
-//           target: initialPosition,
-//           zoom: 11,
-//
-//         ),
-//       ),
-//     );
-//   }
-// }

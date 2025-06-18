@@ -15,11 +15,16 @@ class AddDeliveryAddressProvider extends ChangeNotifier {
   TextEditingController areaController = TextEditingController();
   TextEditingController pincodeController = TextEditingController();
   bool isLoading = false;
+  double? latitude;
+  double? longitude;
 
-  void saveData(context, addressType) async {
+   saveData(context, addressType) async {
     isLoading = true;
     notifyListeners();
     try {
+      if(latitude == null || longitude == null){
+        return ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Location is empty')));
+      }
       await FirebaseFirestore.instance
           .collection('deliveryData')
           .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -35,6 +40,8 @@ class AddDeliveryAddressProvider extends ChangeNotifier {
             'area': areaController.text,
             'pincode': pincodeController.text,
             'address': addressType.toString().split('.').last,
+            'latitude': latitude,
+            'longitude': longitude,
           })
           .then((val) {
             isLoading = false;
