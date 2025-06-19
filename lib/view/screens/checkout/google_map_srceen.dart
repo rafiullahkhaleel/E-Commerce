@@ -81,42 +81,49 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     );
     return Scaffold(
       appBar: AppBar(title: Text("Google Map")),
-      body: Stack(
-        children: [
+      body:
           currentPosition == null
               ? Center(child: CircularProgressIndicator())
-              : GoogleMap(
-                onMapCreated: _onMapCreated,
-                myLocationEnabled: true,
-                myLocationButtonEnabled: true,
-                initialCameraPosition: CameraPosition(
-                  target: currentPosition!,
-                  zoom: 16,
-                ),
+              : Stack(
+                children: [
+                  GoogleMap(
+                    onMapCreated: _onMapCreated,
+                    myLocationEnabled: true,
+                    myLocationButtonEnabled: true,
+                    initialCameraPosition: CameraPosition(
+                      target: currentPosition!,
+                      zoom: 16,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 10,
+                      right: 50,
+                      bottom: 20,
+                    ),
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: MaterialButton(
+                        height: 60,
+                        minWidth: double.infinity,
+                        onPressed: () {
+                          provider.latitude = currentPosition?.latitude ?? 0;
+                          provider.longitude = currentPosition?.longitude ?? 0;
+                          Navigator.of(context).pop();
+                        },
+                        color: AppColors.primaryColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Text(
+                          'Add Address',
+                          style: TextStyle(fontSize: 17),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10, bottom: 20),
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: MaterialButton(
-                height: 60,
-                minWidth: double.infinity,
-                onPressed: () {
-                  provider.latitude = currentPosition?.latitude ?? 0;
-                  provider.longitude = currentPosition?.longitude ?? 0;
-                  Navigator.of(context).pop();
-                },
-                color: AppColors.primaryColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child:
-                    Text('Add Address', style: TextStyle(fontSize: 17)),
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
